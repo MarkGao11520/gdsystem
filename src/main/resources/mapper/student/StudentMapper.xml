@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iss.yzsxy.dao.student.StudentMapper" >
+  <resultMap id="BaseResultMap" type="com.iss.yzsxy.pojo.student.Student" >
+    <id column="studentId" property="studentid" jdbcType="INTEGER" />
+    <result column="studentCode" property="studentcode" jdbcType="VARCHAR" />
+    <result column="studentPic" property="studentpic" jdbcType="VARCHAR" />
+    <result column="studentName" property="studentname" jdbcType="VARCHAR" />
+    <result column="classId" property="classid" jdbcType="INTEGER" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="titleId" property="titleid" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="openreport" property="openreport" jdbcType="VARCHAR" />
+    <result column="createUid" property="createuid" jdbcType="INTEGER" />
+    <result column="isdel" property="isdel" jdbcType="INTEGER" />
+    <result column="teacherId1" property="teacherId1" jdbcType="INTEGER" />
+    <association column="classId" property="classes" select="com.iss.yzsxy.dao.classs.ClasssMapper.selectByPrimaryKey"></association>
+    <association column="titleId" property="title" select="com.iss.yzsxy.dao.title.TitleMapper.selectByPrimaryKey"></association>
+    <association column="studentId" property="logininfo" select="com.iss.yzsxy.dao.user.LoginMapper.selectByPrimaryKey"></association>
+    <association column="teacherId1" property="teacher1" select="com.iss.yzsxy.dao.teacher.TeacherMapper.selectByPrimaryKey"></association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    studentId, studentCode,studentPic, studentName, classId, sex, age, titleId, state, openreport,
+    createUid, isdel,departments,grade,major,phone,teacherId1,teacherId2,qq,wechat,wordUrl
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_student
+    where studentId = #{studentid,jdbcType=INTEGER}
+  </select>
+  <insert id="insertSelective" parameterType="com.iss.yzsxy.pojo.student.Student" >
+    insert into tb_student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="studentid != null" >
+        studentId,
+      </if>
+      <if test="studentcode != null" >
+        studentCode,
+      </if>
+      <if test="studentname != null" >
+        studentName,
+      </if>
+      <if test="studentpic != null" >
+        studentPic,
+      </if>
+      <if test="classid != null" >
+        classId,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="titleid != null" >
+        titleId,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="openreport != null" >
+        openreport,
+      </if>
+      <if test="createuid != null" >
+        createUid,
+      </if>
+      <if test="isdel != null" >
+        isdel,
+      </if>
+      <if test="departments != null" >
+        departments,
+      </if>
+      <if test="grade != null" >
+        grade,
+      </if>
+      <if test="major != null" >
+        major,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="teacherId1 != null" >
+        teacherId1,
+      </if>
+      <if test="teacherId2 != null" >
+        teacherId2,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="wechat != null" >
+        wechat,
+      </if>
+      <if test="wordUrl != null" >
+        wordUrl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="studentid != null" >
+        #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="studentcode != null" >
+        #{studentcode,jdbcType=VARCHAR},
+      </if>
+      <if test="studentname != null" >
+        #{studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="studentpic != null" >
+        #{studentpic,jdbcType=VARCHAR},
+      </if>
+      <if test="classid != null" >
+        #{classid,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="titleid != null" >
+        #{titleid,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="openreport != null" >
+        #{openreport,jdbcType=VARCHAR},
+      </if>
+      <if test="createuid != null" >
+        #{createuid,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null" >
+        #{isdel,jdbcType=INTEGER},
+      </if>
+      <if test="departments != null" >
+        #{departments,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherId1 != null" >
+        #{teacherId1,jdbcType=INTEGER},
+      </if>
+      <if test="teacherId2 != null" >
+        #{teacherId2,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null" >
+        #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="wordUrl != null" >
+        #{wordUrl,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iss.yzsxy.pojo.student.Student" >
+    update tb_student
+    <set >
+      <if test="studentcode != null" >
+        studentCode = #{studentcode,jdbcType=VARCHAR},
+      </if>
+      <if test="studentname != null" >
+        studentName = #{studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="studentpic != null" >
+        studentPic = #{studentpic,jdbcType=VARCHAR},
+      </if>
+      <if test="classid != null" >
+        classId = #{classid,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="titleid != null" >
+        titleId = #{titleid,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="openreport != null" >
+        openreport = #{openreport,jdbcType=VARCHAR},
+      </if>
+      <if test="createuid != null" >
+        createUid = #{createuid,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null" >
+        isdel = #{isdel,jdbcType=INTEGER},
+      </if>
+      <if test="departments != null" >
+        departments = #{departments,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherId1 != null" >
+        teacherId1 = #{teacherId1,jdbcType=INTEGER},
+      </if>
+      <if test="teacherId2 != null" >
+        teacherId2 = #{teacherId2,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null" >
+        wechat = #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="wordUrl != null" >
+        wordUrl = #{wordUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where studentId = #{studentid,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectStudentList" parameterType="com.iss.yzsxy.pojo.student.StudentDto" resultMap="BaseResultMap">
+    SELECT
+      <include refid="Base_Column_List"/>
+    FROM
+      tb_student e
+    WHERE
+      isdel = 0
+    <if test="sname != null">
+      AND e.studentName LIKE #{sname,jdbcType=VARCHAR}
+    </if>
+    <if test="scode != null">
+      AND e.studentCode = #{scode,jdbcType=VARCHAR}
+    </if>
+    <if test="classid !=null">
+      AND e.classId = #{classid,jdbcType=INTEGER}
+    </if>
+  </select>
+  <update id="deleteByPrimaryKeyBatch">
+    UPDATE tb_student
+    set
+    isdel = 1
+    where studentId IN
+    <foreach collection="studentids" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </update>
+
+  <update id="updateStateBatch">
+    UPDATE tb_student
+    set
+    state = #{state}
+    where studentId IN
+    <foreach collection="studentids" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </update>
+
+  <select id="selectByStudentCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_student
+    where studentCode = #{studentcode,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertBatch" >
+    INSERT INTO tb_student(studentId,studentName,studentCode,classId) VALUES
+    <foreach collection="list" item="item" separator=",">
+      (#{item.studentid},#{item.studentname},#{item.studentcode},#{item.classid})
+    </foreach>
+  </insert>
+
+  <select id="selectUnSelectedStudentByClassId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_student
+    where
+    isdel = 0
+    AND titleId is null
+    AND classId = #{classId};
+  </select>
+
+  <select id="selectChangeStudentList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_student
+    where
+    isdel = 0
+    AND state = 1
+    AND teacherId1 = #{teacherid}
+  </select>
+
+
+
+  <update id="updateStudentBatch">
+      update tb_student
+      SET
+      titleId =
+      <foreach collection="list" item="item" separator=" " open="case studentId" close="end">
+        WHEN #{item.studentid} THEN #{item.titleid}
+      </foreach>
+      ,teacherId1=
+      <foreach collection="list" item="item" separator=" " open="case studentId" close="end">
+        WHEN #{item.studentid} THEN #{item.teacherId1}
+      </foreach>
+      WHERE studentId in
+      <foreach collection="list" item="item" open="(" close=")" separator=",">
+        #{item.studentid}
+      </foreach>
+  </update>
+</mapper>

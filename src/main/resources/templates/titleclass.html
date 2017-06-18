@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>软通毕业设计题目分配系统-题目类别管理</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />    
+    
+    <link href="./css/bootstrap.min.css" rel="stylesheet" />
+    <link href="./css/bootstrap-responsive.min.css" rel="stylesheet" />
+    
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet" />
+    <link href="./css/font-awesome.css" rel="stylesheet" />
+    
+    <link href="./css/adminia.css" rel="stylesheet" /> 
+    <link href="./css/adminia-responsive.css" rel="stylesheet" /> 
+    
+    
+    <link href="./css/jquery.visualize.css" rel="stylesheet" />
+	  <link href="./css/fileinput.min.css" rel="stylesheet"/>
+
+	  <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+	
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+
+	<div class="navbar-inner">
+
+		<div class="container">
+
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
+
+			<a class="brand" href="./">软通学生毕业设计题目分配系统</a>
+
+			<div class="nav-collapse">
+
+				<ul class="nav pull-right">
+
+					<li class="divider-vertical"></li>
+
+					<li class="dropdown">
+
+						<a data-toggle="dropdown" class="dropdown-toggle " href="#">
+							<span id="userName1">罗宾逊</span><b class="caret"></b>
+						</a>
+
+						<ul class="dropdown-menu">
+							<li>
+								<a href="./account"><i class="icon-user"></i> 账号设置  </a>
+							</li>
+
+
+
+							<li class="divider"></li>
+
+							<li>
+								<a href="./logout"><i class="icon-off"></i> 退出</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+
+			</div> <!-- /nav-collapse -->
+
+		</div> <!-- /container -->
+
+	</div> <!-- /navbar-inner -->
+
+</div> <!-- /navbar -->
+
+
+
+
+<div id="content">
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="span3">
+
+				<div class="account-container">
+
+					<div class="account-avatar">
+						<img id="userPic" onclick="openImagePanal()" src="./img/headshot.png" alt="" class="thumbnail" />
+					</div> <!-- /account-avatar -->
+
+					<div class="account-details">
+
+						<span id="userName2" class="account-name">罗宾逊</span>
+
+						<span class="account-role">管理员</span>
+
+						<span class="account-actions">
+							<a href="./account">个人信息</a> |
+
+							<a  href="javascript:openImagePanal()" >更改头像</a>
+						</span>
+
+					</div> <!-- /account-details -->
+
+				</div> <!-- /account-container -->
+
+				<hr />
+
+				<ul id="main-nav" class="nav nav-tabs nav-stacked">
+
+					<li >
+						<a href="./admin">
+							<i class="icon-home"></i>
+							首页
+						</a>
+					</li>
+
+					<li>
+						<a href="./classes">
+							<i class="icon-pushpin"></i>
+							班级管理
+						</a>
+					</li>
+
+					<li>
+						<a href="./teacher">
+							<i class="icon-th-list"></i>
+							教师管理
+						</a>
+					</li>
+
+					<li>
+						<a href="./student">
+							<i class="icon-th-large"></i>
+							学生管理
+						</a>
+					</li>
+
+					<li>
+						<a href="./adminManager">
+							<i class="icon-th-list"></i>
+							管理员管理
+						</a>
+					</li>
+
+					<li class="active">
+						<a href="./titleclass">
+							<i class="icon-signal"></i>
+							题目类别管理
+						</a>
+					</li>
+
+					<li>
+						<a href="./account">
+							<i class="icon-user"></i>
+							用户账号
+						</a>
+					</li>
+
+
+
+				</ul>
+
+
+
+				<hr />
+
+				<!--<div class="sidebar-extra">-->
+					<!--<p>这里是提示信息文字这里是提示信息文字这里是提示信息文字这里是提示信息文字这里是提示信息文字这里是提示信息文字这里是提示信息文字这里是提示信息文字.</p>-->
+				<!--</div> &lt;!&ndash; .sidebar-extra &ndash;&gt;-->
+
+				<br />
+
+			</div> <!-- /span3 -->
+
+
+
+			<div class="span9">
+
+				<h1 class="page-title">
+					<i class="icon-signal"></i>
+					题目类别管理
+				</h1>
+
+				<!--头像上传开始-->
+				<div class="widget">
+					<div id="imageWidget" hidden="hidden" class="row" style="position: absolute;z-index: 1;">
+						<div class="span2">
+							<div class="widget"></div>
+						</div>
+						<div class="span4">
+							<div class="widget">
+								<div align="center" class="widget-header">
+									头像上传
+								</div>
+								<div class="widget-content">
+									<input style="float:left;" id="photo" multiple="multiple" type="file" name="photo"/>
+									<button style="float:right;" onclick="closeImagePanal()" class="btn btn-danger">关闭</button>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--头像上传结束-->
+
+				<div  class="widget">
+					<div id="widgetP" hidden="hidden" class="row" style="position: fixed;z-index: 1; bottom: 18%">
+						<div class="span2">
+							<div class="widget"></div>
+						</div>
+						<div class="span4">
+							<div class="widget">
+								<div id="widgetHeader" align="center" class="widget-header">
+								</div>
+								<div class="widget-content">
+									<div class="input-group" style="padding: 10px">
+										<span  class="input-group-addon">题目类型名称</span>
+										<input  id="tcname" type="text" class="form-control" placeholder="请输入题目类型名称" /><span style="color: red">*</span>
+									</div>
+
+
+									<div >
+										<button id="submitbtn"  onclick="" type="button" style="width: 45%;" class="btn btn-warning ">提交</button>
+
+										<button type="button" onclick="cloasPanal()" class="btn btn-danger" style="width: 45%;">取消</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+				<button  onclick="addP()" class="btn btn-warning">新增题目类别</button>
+				<button  onclick="deleteall()" class="btn btn-warning">删除题目类别</button>
+
+				<div class="input-group" >
+					<input id="tcNameKey" style="margin-top: 1%" type="text" class="form-control" placeholder="题目类型名称/可模糊"/>
+					<button  onclick="findLists(1,10)" class="btn btn-warning">搜索</button>
+				</div>
+
+				<div class="widget widget-table">
+
+					<div class="widget-header">
+						<i class="icon-th-list"></i>
+						<h3>题目类别列表</h3>
+					</div> <!-- /widget-header -->
+
+					<div class="widget-content">
+						<table class="table table-striped table-bordered">
+							<thead>
+							<tr>
+								<th></th>
+								<th></th>
+								<th>题目类别名称</th>
+								<th>创建者</th>
+								<th>操作</th>
+							</tr>
+							</thead>
+
+							<tbody id="tbody">
+
+							</tbody>
+						</table>
+
+					</div> <!-- /widget-content -->
+
+					<div class="paging"  style="z-index: -1;float: right">
+						<ul id="page_ul" class="pagination">
+
+						</ul>
+					</div>
+
+				</div> <!-- /widget -->
+
+
+
+			</div> <!-- /span9 -->
+
+
+		</div> <!-- /row -->
+
+	</div> <!-- /container -->
+
+</div> <!-- /content -->
+
+
+<div id="footer">
+
+	<div class="container">
+		<hr />
+		<p>@Copy 2017-2018 软通动力教育培训事业部 All Rights Reserved</p>
+	</div> <!-- /container -->
+
+</div> <!-- /footer -->
+
+
+    
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./js/jquery-1.7.2.min.js"></script>
+
+
+<script src="./js/bootstrap.js"></script>
+<script src="./js/myjs/fileinput.min.js"></script>
+<script src="./js/myjs/fileinput_locale_zh.js"></script>
+<script src="./js/myjs/url.js"></script>
+<script src="./js/myjs/main.js"></script>
+<script src="./js/myjs/titleclasses.js"></script>
+
+
+  </body>
+</html>

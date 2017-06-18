@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iss.yzsxy.dao.title.TitleMapper" >
+  <resultMap id="BaseResultMap" type="com.iss.yzsxy.pojo.title.Title" >
+    <id column="titleId" property="titleid" jdbcType="INTEGER" />
+    <result column="titleName" property="titlename" jdbcType="VARCHAR" />
+    <result column="titleContent" property="titlecontent" jdbcType="VARCHAR" />
+    <result column="titleClassId" property="titleclassid" jdbcType="INTEGER" />
+    <result column="createTeacherId" property="createteacherid" jdbcType="INTEGER" />
+    <result column="isdel" property="isdel" jdbcType="INTEGER" />
+    <association column="createTeacherId" property="teacher" select="com.iss.yzsxy.dao.teacher.TeacherMapper.selectByPrimaryKey"></association>
+    <association column="titleClassId" property="titleClass" select="com.iss.yzsxy.dao.title.TitleClassMapper.selectByPrimaryKey"></association>
+    <association column="titleId" property="selectCount" select="com.iss.yzsxy.dao.title.TitleMapper.selectCount"></association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    titleId, titleName, titleContent, titleClassId, createTeacherId, isdel,createTime,titleCode
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_title
+    where titleId = #{titleid,jdbcType=INTEGER}
+  </select>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="titleid" parameterType="com.iss.yzsxy.pojo.title.Title" >
+    insert into tb_title
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="titleid != null" >
+        titleId,
+      </if>
+      <if test="titlename != null" >
+        titleName,
+      </if>
+      <if test="titlecontent != null" >
+        titleContent,
+      </if>
+      <if test="titleclassid != null" >
+        titleClassId,
+      </if>
+      <if test="createteacherid != null" >
+        createTeacherId,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="titleCode != null" >
+        titleCode,
+      </if>
+      <if test="isdel != null" >
+        isdel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="titleid != null" >
+        #{titleid,jdbcType=INTEGER},
+      </if>
+      <if test="titlename != null" >
+        #{titlename,jdbcType=VARCHAR},
+      </if>
+      <if test="titlecontent != null" >
+        #{titlecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="titleclassid != null" >
+        #{titleclassid,jdbcType=INTEGER},
+      </if>
+      <if test="createteacherid != null" >
+        #{createteacherid,jdbcType=INTEGER},
+      </if>
+      <if test="titleCode != null" >
+        #{titleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime},
+      </if>
+      <if test="isdel != null" >
+        #{isdel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iss.yzsxy.pojo.title.Title" >
+    update tb_title
+    <set >
+      <if test="titlename != null" >
+        titleName = #{titlename,jdbcType=VARCHAR},
+      </if>
+      <if test="titlecontent != null" >
+        titleContent = #{titlecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="titleclassid != null" >
+        titleClassId = #{titleclassid,jdbcType=INTEGER},
+      </if>
+      <if test="createteacherid != null" >
+        createTeacherId = #{createteacherid,jdbcType=INTEGER},
+      </if>
+      <if test="titleCode != null" >
+        titleCode = #{titleCode,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime},
+      </if>
+      <if test="isdel != null" >
+        isdel = #{isdel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where titleId = #{titleid,jdbcType=INTEGER}
+  </update>
+
+  <!--获取列表-->
+  <select id="selectList" parameterType="com.iss.yzsxy.pojo.title.TitleDto" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM
+    tb_title e
+    WHERE
+    isdel = 0
+    <if test="tname!=null">
+      AND e.titleName LIKE #{tname,jdbcType=VARCHAR}
+    </if>
+    <if test="titleclassid!=null">
+      AND e.titleClassId = #{titleclassid,jdbcType=VARCHAR}
+    </if>
+    <if test="teacherid!=null">
+      AND e.createTeacherId = #{teacherid,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <!--批量删除-->
+  <update id="deleteBatch"  >
+    update tb_title
+    set
+    isdel = 1
+    where titleId IN
+    <foreach collection="ids" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </update>
+
+  <select id="selectTitleIdByClassId" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    tb_title
+    WHERE
+    titleId NOT IN (
+    SELECT DISTINCT
+    titleId
+    FROM
+    tb_student
+    WHERE
+    titleId IS NOT NULL
+    AND classId = #{classId}
+    )
+  </select>
+  <select id="selectByTitleName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT
+      <include refid="Base_Column_List"/>
+    FROM
+    tb_title
+    WHERE
+      titleName = #{titlename,jdbcType=INTEGER}
+  </select>
+  <insert id="insertBatch">
+    INSERT INTO tb_title(titleName,titleContent,titleClassId,createTeacherId) VALUES
+      <foreach collection="list" item="item" separator=",">
+        (#{item.titlename},#{item.titlecontent},#{item.titleclassid},#{item.createteacherid})
+      </foreach>
+  </insert>
+</mapper>

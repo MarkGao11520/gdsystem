@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iss.yzsxy.dao.title.TitleClassMapper" >
+  <resultMap id="BaseResultMap" type="com.iss.yzsxy.pojo.title.TitleClass" >
+    <id column="titleClassId" property="titleclassid" jdbcType="INTEGER" />
+    <result column="titleClassName" property="titleclassname" jdbcType="VARCHAR" />
+    <result column="createUid" property="createuid" jdbcType="INTEGER" />
+    <result column="isdel" property="isdel" jdbcType="INTEGER" />
+    <association column="createUid" property="admin" select="com.iss.yzsxy.dao.user.AdminMapper.selectByPrimaryKey"></association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    titleClassId, titleClassName, createUid, isdel
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_title_class
+    where titleClassId = #{titleclassid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_title_class
+    where titleClassId = #{titleclassid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.iss.yzsxy.pojo.title.TitleClass" >
+    insert into tb_title_class (titleClassId, titleClassName, createUid, 
+      isdel)
+    values (#{titleclassid,jdbcType=INTEGER}, #{titleclassname,jdbcType=VARCHAR}, #{createuid,jdbcType=INTEGER}, 
+      #{isdel,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.iss.yzsxy.pojo.title.TitleClass" useGeneratedKeys="true" keyProperty="titleclassid">
+    insert into tb_title_class
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="titleclassid != null" >
+        titleClassId,
+      </if>
+      <if test="titleclassname != null" >
+        titleClassName,
+      </if>
+      <if test="createuid != null" >
+        createUid,
+      </if>
+      <if test="isdel != null" >
+        isdel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="titleclassid != null" >
+        #{titleclassid,jdbcType=INTEGER},
+      </if>
+      <if test="titleclassname != null" >
+        #{titleclassname,jdbcType=VARCHAR},
+      </if>
+      <if test="createuid != null" >
+        #{createuid,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null" >
+        #{isdel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iss.yzsxy.pojo.title.TitleClass" >
+    update tb_title_class
+    <set >
+      <if test="titleclassname != null" >
+        titleClassName = #{titleclassname,jdbcType=VARCHAR},
+      </if>
+      <if test="createuid != null" >
+        createUid = #{createuid,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null" >
+        isdel = #{isdel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where titleClassId = #{titleclassid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iss.yzsxy.pojo.title.TitleClass" >
+    update tb_title_class
+    set titleClassName = #{titleclassname,jdbcType=VARCHAR},
+      createUid = #{createuid,jdbcType=INTEGER},
+      isdel = #{isdel,jdbcType=INTEGER}
+    where titleClassId = #{titleclassid,jdbcType=INTEGER}
+  </update>
+
+  <!--获取列表-->
+  <select id="selectList" parameterType="com.iss.yzsxy.pojo.title.TitleClassDto" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM
+    tb_title_class e
+    WHERE
+    isdel = 0
+    <if test="tcName!=null">
+      AND e.titleClassName LIKE #{tcName,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <!--批量删除-->
+  <update id="deleteBatch"  >
+    update tb_title_class
+    set
+    isdel = 1
+    where titleClassId IN
+    <foreach collection="ids" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </update>
+  <select id="selectByTitleClassName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM
+      tb_title_class
+    WHERE
+    titleClassName = #{titleclassname,jdbcType=VARCHAR}
+  </select>
+</mapper>
