@@ -35,9 +35,61 @@ public class Student {
 
     private String state;
 
+    private String content;
+    private String teacherId2Phone;
+
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Student student = (Student) o;
+
+        return studentcode != null ? studentcode.equals(student.studentcode) : student.studentcode == null;
+    }
+
+
+    public String getTeacherId2Phone() {
+        return teacherId2Phone;
+    }
+
+    public void setTeacherId2Phone(String teacherId2Phone) {
+        this.teacherId2Phone = teacherId2Phone;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     private String openreport;
 
     private Integer createuid;
+
+    private Integer createtitleid;
+
+    private Title designtitlename;
+
+    public Title getDesigntitlename() {
+        return designtitlename;
+    }
+
+    public void setDesigntitlename(Title designtitlename) {
+        this.designtitlename = designtitlename;
+    }
+
+    public Integer getCreatetitleid() {
+        return createtitleid;
+    }
+
+    public void setCreatetitleid(Integer createtitleid) {
+        this.createtitleid = createtitleid;
+    }
 
     private String departments;
 

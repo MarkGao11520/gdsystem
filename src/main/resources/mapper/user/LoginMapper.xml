@@ -100,4 +100,33 @@
       (#{item.username},#{item.password},#{item.roleid})
     </foreach>
   </insert>
+  <update id="resetTeacherPassword" >
+    update tb_login
+    SET
+    password = #{password,jdbcType=VARCHAR}
+    WHERE loginId IN
+    <foreach collection="Tloginids" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </update>
+  <update id="resetStudentPassword" >
+    update tb_login
+    SET
+    password = #{password,jdbcType=VARCHAR}
+    WHERE loginId IN
+    <foreach collection="Sloginids" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </update>
+  <update id="resetAdminPassword">
+    UPDATE
+      tb_login
+    SET
+      password = #{password,jdbcType=VARCHAR}
+    WHERE loginId IN
+      <foreach collection="Aloginids" item="item" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+
+  </update>
 </mapper>

@@ -42,4 +42,6 @@ public interface IAdminService {
     public int addAdmin(Admin admin);
 
     public Map<String,Object> importExcel(MultipartFile importExcel);
+
+    public int resetAdminPassword(Integer[] loginids);
 }

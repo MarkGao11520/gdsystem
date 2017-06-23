@@ -42,7 +42,7 @@ function findLists(page,rows){   //获取广告位列表
             pages(resultPages,resultRows);
         },
         error:function(error){
-            alert("访问服务器失败");
+            bootbox.alert("访问服务器失败");
         }
     });
 }
@@ -61,7 +61,7 @@ function add() {  //添加广告位
             },
             success:function(result){
                 if(result==1){
-                    alert("添加成功");
+                    bootbox.alert("添加成功");
                     cloasPanal();
                     if(total%10!=0||total==0){
                         findLists(resultPages,10);
@@ -70,11 +70,11 @@ function add() {  //添加广告位
                     }
                 }
                 else{
-                    alert("添加失败");
+                    bootbox.alert("添加失败");
                 }
             },
             error:function(error){
-                alert("访问服务器失败");
+                bootbox.alert("访问服务器失败");
             }
         });
     }
@@ -97,15 +97,15 @@ function update(id) {
             },
             success:function(result){
                 if(result==1){
-                    alert("编辑成功");
+                    bootbox.alert("编辑成功");
                     cloasPanal();
                     findLists(pageNum,10);
                 }else{
-                    alert("编辑失败");
+                    bootbox.alert("编辑失败");
                 }
             },
             error:function(error){
-                alert("访问服务器失败");
+                bootbox.alert("访问服务器失败");
             }
         });
     }
@@ -123,7 +123,7 @@ function deleteall() {
         }
     }
     if (str.length==0) {
-        alert("您没有选择任何数据");
+        bootbox.alert("您没有选择任何数据");
     } else {
         $.ajax({
             url: DELETECLASS_URL,
@@ -133,15 +133,15 @@ function deleteall() {
             contentType: "application/json;charset=utf-8", // 因为上面是JSON数据
             success: function (result) {
                 if(result==1){
-                    alert("删除成功");
+                    bootbox.alert("删除成功");
                     findLists(pageNum,10);
                 }else{
-                    alert("删除失败");
+                    bootbox.alert("删除失败");
                 }
             },
             error:function(error){
-                alert("访问服务器失败");
-                alert(error);
+                bootbox.alert("访问服务器失败");
+                bootbox.alert(error);
             }
 
         });
@@ -262,7 +262,7 @@ function clear() {
  */
 function check() {   //验证
     if($('#cname').val()==""||$('#cname').val()==null){
-        alert("班级内容不能为空");
+        bootbox.alert("班级内容不能为空");
         return false;
     }
     return true;

@@ -23,7 +23,7 @@ var sid;
 function findLists(page,rows){
     $.ajax({
         type:"get",
-        url:GET_CHANGE_STUDENT,
+        url:GET_DESIGNSTUDENTLIST,
         async:true,
         data:{
             "page":page,
@@ -135,24 +135,19 @@ function changeTitleBatch() {
 function openAssigenPanal(id) {
     $.ajax({
         type:'get',
-        url:GET_SELECTED_TITLE_URL,
+        url:AGREESTUDENTDESIGNTITLE,
         data:{
-            classid:$('#classList').val()
+            studentid:id
         },
         success:function (result) {
-            var str = ""
-            for(var i=0;i<result.length;i++){
-                str += '<option value='+result[i].titleid+'>'+result[i].titlename+'</option>';
-            }
-            $('#titleList').html(str);
+            bootbox.alert("已将该学生设计的题目录入数据库");
+            findLists(1,10);
         },
         error:function(error){
             bootbox.alert("访问服务器失败");
             bootbox.alert(error);
         }
     })
-    $('#assSubmitBtn').attr('onclick','assigenOneSpecified('+id+')')
-    $('#assigenWidget').show();
 }
 
 /**
@@ -179,7 +174,8 @@ function table(list) {   //
             "<td>" + (obj.teacherId2==null?'无':obj.teacherId2==null) + "</td>"+
             "<td>" + (obj.teacherId1==null?'无':obj.teacher1.teachername) + "</td>"+
             "<td>" + (obj.title==null?'未选题':obj.title.titlename) + "</td>"+
-            "<td>" + obj.content + "</td>"+
+            "<td>" + obj.designtitlename.titlename + "</td>"+
+            "<td>" + obj.designtitlename.titlecontent + "</td>"+
             "<td class=\"action-td\">" +
             "<a href=\"javascript:updateState("+obj.studentid+")\" class=\"btn btn-small btn-warning\">拒绝换题</a>" +
             "<a href=\"javascript:openAssigenPanal("+obj.studentid+")\" class=\"btn btn-small btn-warning\">同意换题</a>" +
@@ -244,7 +240,7 @@ function updateState(id) {
         async:true,
         data:{
             "studentid":id,
-            "state":2
+            "state":5
         },
         success:function(result){
             if(result==1){
@@ -274,8 +270,8 @@ function changeall() {
         bootbox.alert("您没有选择任何数据");
     } else {
         var strs = "";
-        for(var j=0;j<str.length;j++){
-            if(j==0)
+        for (var j=0;j<str.length;j++){
+            if (j==0)
                 strs+=str
             else
                 strs+=","+str;
@@ -286,7 +282,7 @@ function changeall() {
             cache: false,
             data: {
                 studentIds:strs,
-                state:2
+                state:5
             },
             success: function (result) {
                 if(result.result==1){

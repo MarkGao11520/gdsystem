@@ -44,6 +44,12 @@ public interface IStudentService {
      * @return
      */
     public Integer studentAdd(Student student, Login login);
+    /**
+     * 重置学生密码
+     * @param loginids
+     * @return
+     */
+    public int resetStudentPassword(Integer[] loginids);
 
     /**
      * excel导入
@@ -91,6 +97,12 @@ public interface IStudentService {
     public List<Title> getUnSelectTitleByClassId(Integer classid);
 
     /**
+     * 同意学生设计题目
+     * @param studentid
+     * @return
+     */
+    public int agreeDesignTitleByStudentId(Integer studentid);
+    /**
      * 获取申请换题列表学生列表
      * @param page
      * @param rows
@@ -98,6 +110,13 @@ public interface IStudentService {
      */
     PageInfo<Student> getChangeStudentList(int page,int rows);
 
+    /**
+     * 获取设计题目学生列表
+     * @param page
+     * @param rows
+     * @return
+     */
+    PageInfo<Student> studentDesignTitleList(int page,int rows);
     /**
      * 拒绝换题
      * @param studentids
@@ -115,4 +134,6 @@ public interface IStudentService {
     Map<String,Object> doAssignedSubject(String sids,String cids);
 
     Map<String,Object> getWordList(Integer classid);
+
+    PageInfo<Student> getStudentByTeacherId(StudentDto studentDto);
 }

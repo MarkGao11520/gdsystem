@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>软通毕业设计题目分配系统-我的题目</title>
-
+    <title>软通毕业设计题目分配系统-学设审批</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -14,13 +13,13 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet"/>
     <link href="./css/font-awesome.css" rel="stylesheet"/>
 
+
     <link href="./css/adminia.css" rel="stylesheet"/>
     <link href="./css/adminia-responsive.css" rel="stylesheet"/>
 
-    <link href="./css/pages/dashboard.css" rel="stylesheet"/>
-    <link href="./css/bootstrap-theme.min.css" rel="stylesheet"/>
-    <link href="./css/fileinput.min.css" rel="stylesheet"/>
 
+    <link href="./css/pages/plans.css" rel="stylesheet"/>
+    <link href="./css/fileinput.min.css" rel="stylesheet"/>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -49,19 +48,21 @@
             <div class="nav-collapse">
 
                 <ul class="nav pull-right">
-
+                    <li>
+                        <a href="#"><span id="num1" class="badge badge-warning">7</span></a>
+                    </li>
 
                     <li class="divider-vertical"></li>
 
                     <li class="dropdown">
 
                         <a data-toggle="dropdown" class="dropdown-toggle " href="#">
-                            <span id="userName1"></span> <b class="caret"></b>
+                            <span id="userName1"></span><b class="caret"></b>
                         </a>
 
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="./studentaccount"><i class="icon-user"></i> 账号设置 </a>
+                                <a href="./teacheraccount"><i class="icon-user"></i> 账号设置 </a>
                             </li>
 
 
@@ -101,10 +102,10 @@
 
                         <span id="userName2" class="account-name">罗宾逊</span>
 
-                        <span class="account-role">学生</span>
+                        <span class="account-role">教师</span>
 
                         <span class="account-actions">
-							<a href="./studentaccount">个人信息</a> |
+							<a href="./teacheraccount">个人信息</a> |
 
 							<a href="javascript:openImagePanal()">更改头像</a>
 						</span>
@@ -118,22 +119,44 @@
                 <ul id="main-nav" class="nav nav-tabs nav-stacked">
 
                     <li>
-                        <a href="./myTitle">
+                        <a href="./title">
                             <i class="icon-home"></i>
-                            我的题目
+                            题目管理
                         </a>
                     </li>
 
-                    <li class="active">
-                        <a href="./openReport">
+                    <li >
+                        <a href="./change_title">
                             <i class="icon-th-large"></i>
-                            完善开题报告
+                            换题审批
+                            <span id="num2" class="label label-warning pull-right">5</span>
                         </a>
                     </li>
+                    <li class="active">
+                        <a href="./studentdesigntitle">
+                            <i class="icon-th-large"></i>
+                            学设审批
+                            <span id="num3" class="label label-warning pull-right">5</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="./assigen">
+                            <i class="icon-th-large"></i>
+                            题目分配
+                        </a>
+                    </li>
+                    <li >
+                        <a href="./myStudent">
+                            <i class="icon-th-large"></i>
+                            我的学生
+                        </a>
+                    </li>
+
 
 
 
                 </ul>
+
 
                 <hr/>
 
@@ -149,8 +172,8 @@
             <div class="span9">
 
                 <h1 class="page-title">
-                    <i class="icon-home"></i>
-                    完善开题报告
+                    <i class="icon-th-large"></i>
+                    学设审批
                 </h1>
 
                 <!--头像上传开始-->
@@ -166,8 +189,7 @@
                                 </div>
                                 <div class="widget-content">
                                     <input style="float:left;" id="photo" multiple="multiple" type="file" name="photo"/>
-                                    <button style="float:right;" onclick="closeImagePanal()" class="btn btn-danger">关闭
-                                    </button>
+                                    <button style="float:right;" onclick="closeImagePanal()" class="btn btn-danger">关闭</button>
 
                                 </div>
                             </div>
@@ -176,50 +198,49 @@
                 </div>
                 <!--头像上传结束-->
 
-                <div class="row">
-
-                    <div class="span9">
-                        <div class="widget widget-table">
-                            <div class="widget-content">
-                                <table class="table table-striped table-bordered">
-                                    <tr>
-                                        <th>姓名</th>
-                                        <th id="sname">高文峰</th>
-                                        <th>学院</th>
-                                        <th id="depart">计算机学院</th>
-                                        <th>专业</th>
-                                        <th id="major">软件工程</th>
-                                        <th>班级</th>
-                                        <th id="classes">软件Z1402</th>
-                                    </tr>
-                                    <tr>
-                                        <th>题目</th>
-                                        <th id="title" colspan="5">题目1</th>
-                                        <th>指导教师</th>
-                                        <th id="teacher">张建军</th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="8">
-                                            <textarea name="editor1" id="editor1"></textarea>
-                                        </th>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!--<h3>题目名称</h3>-->
 
 
-                    </div> <!-- /span9 -->
 
-                </div> <!-- /row -->
+                <button ONCLICK="changeall()" class="btn btn-warning">全部拒绝</button>
 
-                <br/>
-                <button onclick="upload()" class="btn btn-warning">提交</button>
+                <br/><br/>
+                <div class="widget widget-table">
 
-                <button onclick="exportWord()" class="btn btn-warning">导出开题报告</button>
-                <span style="color: red">（注：若有修改请先添加再导出）</span>
+                    <div class="widget-header">
+                        <i class="icon-th-list"></i>
+                        <h3>申请设计题目学生列表</h3>
+                    </div> <!-- /widget-header -->
 
+
+                    <div class="widget-content">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th></th>
+                                <th>姓名</th>
+                                <th>学号</th>
+                                <th>校导</th>
+                                <th>企业导师</th>
+                                <th>选题名称</th>
+                                <th>设计的题目</th>
+                                <th>设计的内容</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+
+                            <tbody id="tbody">
+
+                            </tbody>
+                        </table>
+
+                    </div> <!-- /widget-content -->
+                    <div class="paging" style="z-index: -1;float: right">
+                        <ul id="page_ul" class="pagination">
+                        </ul>
+                    </div>
+
+                </div>
             </div> <!-- /span9 -->
 
 
@@ -228,10 +249,10 @@
     </div> <!-- /container -->
 
 </div> <!-- /content -->
+
 <br></br>	<br></br><br></br>
 
-
-<div  id="footer" style="position: fixed;bottom: 0;text-align: center">
+<div  style="position: fixed;bottom: 0;text-align: center">
 
     <div class="container">
         <hr/>
@@ -245,16 +266,15 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="./js/jquery-1.7.2.min.js"></script>
-<script src="./js/myjs/fileinput.min.js"></script>
-<script src="./js/myjs/fileinput_locale_zh.js"></script>
+
 
 <script src="./js/bootstrap.js"></script>
-<script src="./ckeditor/ckeditor.js"></script>
+<script src="./js/bootbox.js"></script>
+<script src="./js/myjs/fileinput.min.js"></script>
+<script src="./js/myjs/fileinput_locale_zh.js"></script>
 <script src="./js/myjs/url.js"></script>
 <script src="./js/myjs/main.js"></script>
-<script src="./js/myjs/openReport.js"></script>
-<script>
+<script src="./js/myjs/studentdesigntitle.js"></script>
 
-</script>
 </body>
 </html>

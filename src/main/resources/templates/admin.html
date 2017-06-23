@@ -43,7 +43,7 @@
 				<span class="icon-bar"></span> 				
 			</a>
 			
-			<a class="brand" href="./">软通学生毕业设计题目分配系统</a>
+			<a class="brand" href="./"><img src="temp/logo.ico" height="auto" width="101"/> 软通学生毕业设计题目分配系统</a>
 			
 			<div class="nav-collapse">
 			
@@ -161,12 +161,7 @@
 						</a>
 					</li>
 					
-					<li>
-						<a href="./account">
-							<i class="icon-user"></i>
-							用户账号					
-						</a>
-					</li>
+
 					
 				</ul>	
 				
@@ -223,6 +218,11 @@
 								</div>
 								<div class="widget-content">
 									<div class="controls" style="padding: 10px">
+										<span  class="input-group-addon">题目类型</span>
+										<select id="tcList1" style="margin-top: 1%"></select>
+									</div>
+
+									<div class="controls" style="padding: 10px">
 										<span  class="input-group-addon">题目名称</span>
 										<input  id="tname" type="text" class="input-large" placeholder="请输入题目名称" /><span style="color: red">*</span>
 									</div>
@@ -255,7 +255,7 @@
 								</div>
 								<div class="widget-content">
 									<input style="float:left;" id="excel" multiple="multiple" type="file" name="excel"/>
-									<button style="float:right;" onclick="cloasExportPanal()" class="btn btn-danger">关闭</button>
+									<button style="float:right;" onclick="closeImportPanal()" class="btn btn-danger">关闭</button>
 
 								</div>
 							</div>
@@ -295,13 +295,13 @@
 
 
 
+
 				</div> <!-- /stat-container -->
 
 				<select id="tcList" onchange="findLists(1,10)" style="margin-top: 1%"></select>
-				<button  onclick="addP()" class="btn btn-warning">新增题目</button>
 				<button  onclick="deleteall()" class="btn btn-warning">删除题目</button>
 				<button onclick="download()" class="btn btn-warning">excel模板下载</button>
-				<button onclick="openExportFormPanal()" class="btn btn-warning">导入学生</button>
+				<button onclick="openImportFormPanal()" class="btn btn-warning">导入题目</button>
 				<div class="widget">
 
 					<div class="widget-header">
@@ -362,9 +362,10 @@
 	</div> <!-- /container -->
 	
 </div> <!-- /content -->
-					
-	
-<div id="footer">
+
+<br></br>	<br></br><br></br>
+
+<div style="position: fixed;bottom: 0;text-align: center">
 	
 	<div class="container">				
 		<hr />
@@ -383,6 +384,8 @@
 <script src="./js/myjs/fileinput_locale_zh.js"></script>
 
 <script src="./js/bootstrap.js"></script>
+<script src="./js/bootbox.js"></script>
+
 <script src="./js/myjs/fileinput.min.js"></script>
 <script src="./js/myjs/fileinput_locale_zh.js"></script>
 <script src="./js/myjs/echart.js"></script>

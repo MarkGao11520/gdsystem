@@ -75,4 +75,11 @@ public class AdminController {
     public Map<String,Object> excelImport(MultipartFile excel){
         return adminService.importExcel(excel);
     }
+
+    @RequestMapping("/resetAdminPassword")
+    @ResponseBody
+    public int resetAdminPassword(@RequestBody Integer[] loginids){
+        return adminService.resetAdminPassword(loginids);
+    }
+
 }

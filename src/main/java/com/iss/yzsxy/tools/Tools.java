@@ -62,6 +62,16 @@ public class Tools {
         return sysUser;
     }
 
+    public static Integer[] stringsToIntegers(String[] ids){
+        if(ids.length==0)
+            return new Integer[0];
+        Integer []integers = new Integer[ids.length];
+        for(int i=0;i<ids.length;i++){
+            integers[i]=Integer.parseInt(ids[i]);
+        }
+        return integers;
+    }
+
     public static String dataLongToString(long time){
         Date dt=new Date(time);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

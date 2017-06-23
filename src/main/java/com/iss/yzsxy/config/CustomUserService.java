@@ -16,11 +16,13 @@ public class CustomUserService implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+
         SysUser user = loginMapper.findByUname(s);
         if (user == null){
             throw new UsernameNotFoundException("用户名不存在");
         }
-        System.out.println(user.getPassword()+" "+user.getUsername()+user.getId()+""+user.getRoles());
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        System.out.println(passwordEncoder.encode("123456"));
 //        user.setRoles(basUserMapper.findUserRoleByUserName(s));
         return user;
     }

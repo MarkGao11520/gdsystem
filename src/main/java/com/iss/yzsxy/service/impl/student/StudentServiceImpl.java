@@ -20,6 +20,8 @@ import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.apache.poi.hssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,6 +48,8 @@ public class StudentServiceImpl implements IStudentService {
     TitleMapper titleMapper;
     @Autowired
     HttpServletRequest request;
+    @Autowired
+    Md5PasswordEncoder passwordEncoder;
 
     /**
      * 根据id查询学生信息，并且student和ClassName，student和titleClass一对一
@@ -137,7 +141,7 @@ public class StudentServiceImpl implements IStudentService {
         if (loginMapper.findByUname(login.getUsername()) != null) {
             result = -1;
         }else {
-            login.setPassword("88888888");
+            login.setPassword(passwordEncoder.encodePassword("66666666",null));
             login.setRoleid(2);
             try {
                 if (loginMapper.insertSelective(login) == 1) {
@@ -159,6 +163,32 @@ public class StudentServiceImpl implements IStudentService {
         return result;
     }
 
+    /**
+     * 重置学生密码
+     * @param loginids
+     * @return
+     */
+    @Override
+    public int resetStudentPassword(Integer[] loginids) {
+        int result = 0;
+        String password;
+        if (Tools.obtainPrincipal().getRoles().equals("0")||Tools.obtainPrincipal().getRoles().equals("1")){
+            try {
+                password = passwordEncoder.encodePassword("66666666",null);
+                if (loginMapper.resetStudentPassword(loginids,password)==loginids.length){
+                    result = 1;//重置成功；
+                }else {
+                    result = 0;
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+                result = 0;
+            }
+        }else {
+            result = -1;//您沒有權限
+        }
+        return result;
+    }
     /**
      * 学生excel导入
      *
@@ -192,7 +222,6 @@ public class StudentServiceImpl implements IStudentService {
                         valueFirst[k] = parseDB(hc.getCellType(), hc);
                     }
 
-                    System.out.println(JSON.toJSONString(valueFirst));
                     if(!valueFirst[0].trim().equals("姓名")||!valueFirst[1].trim().equals("学号")||!valueFirst[2].trim().equals("班级")){
                         map.put("result",-5);
                         return map;
@@ -214,7 +243,7 @@ public class StudentServiceImpl implements IStudentService {
 
                         Login login = new Login();
                         login.setUsername(value[1]);
-                        login.setPassword("66666666");
+                        login.setPassword(passwordEncoder.encodePassword("66666666",null));
                         login.setRoleid(2);
                         student.setLogininfo(login);
 
@@ -223,9 +252,12 @@ public class StudentServiceImpl implements IStudentService {
                         classs.setCreateuid(Tools.obtainPrincipal().getId());
                         student.setClasses(classs);
 
-                        students.add(student);
-                        logins.add(login);
-                        classses.add(classs);
+                        if(!students.contains(student)&&student.getStudentcode()!=null&&student.getStudentcode()!=""){
+                            students.add(student);
+                            logins.add(login);
+                            classses.add(classs);
+                        }
+
                     }
                 }
             }
@@ -442,6 +474,32 @@ public class StudentServiceImpl implements IStudentService {
     }
 
     @Override
+    @Transactional
+    public int agreeDesignTitleByStudentId(Integer studentid) {
+        int result = 0;
+        try {
+            if (studentMapper.agreeDesignTitle(studentid)==1){
+                Student student = new Student();
+                student = studentMapper.selectByPrimaryKey(studentid);
+                student.setTitleid(student.getCreatetitleid());
+                if (titleMapper.updateStudentDesignTitle(student.getCreatetitleid())==1){
+                    studentMapper.updateByPrimaryKeySelective(student);
+                    result = 1;
+                }else {
+                    result = 0;
+                }
+            }else {
+                result = 0;
+                throw new RuntimeException("同意学生换题错误");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("同意换题异常");
+        }
+        return result;
+    }
+
+    @Override
     public PageInfo<Student> getChangeStudentList(int page, int rows) {
         PageHelper.startPage(page, rows);
         List<Student> students = studentMapper.selectChangeStudentList(Tools.obtainPrincipal().getId());
@@ -451,7 +509,17 @@ public class StudentServiceImpl implements IStudentService {
             return new PageInfo<Student>(Collections.emptyList());
         }
     }
+    @Override
+    public PageInfo<Student> studentDesignTitleList(int page, int rows) {
+        PageHelper.startPage(page, rows);
+        List<Student> students = studentMapper.selectStudentDesignList(Tools.obtainPrincipal().getId());
 
+        if (resultHandler(students)) {
+            return new PageInfo<Student>(students);
+        } else {
+            return new PageInfo<Student>(Collections.emptyList());
+        }
+    }
     @Override
     public Map<String, Object> doChangeState(Integer[] studentids, String state) {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -522,17 +590,37 @@ public class StudentServiceImpl implements IStudentService {
         }
     }
 
+    @Override
+    public PageInfo<Student> getStudentByTeacherId(StudentDto studentDto) {
+        PageHelper.startPage(studentDto.getPage(), studentDto.getRows());
+        System.out.println(JSON.toJSONString(studentDto));
+        List<Student> students = studentMapper.selectStudentByTeacherId(Tools.obtainPrincipal().getId());
+        System.out.println(JSON.toJSONString(students));
+        if (resultHandler(students)) {
+            return new PageInfo<Student>(students);
+        } else {
+            return new PageInfo<Student>(Collections.emptyList());
+        }
+    }
+
 
     @Transactional
     private void insertBatch(List<Student> studentList, List<Classs> classsList, List<Login> logins, Map<String, Object> map) {
+        boolean temp = false;
+        ArrayList<String> arrayList = new ArrayList<String>();
         for (int i = 0; i < studentList.size(); i++) {
             if (studentMapper.selectByStudentCode(studentList.get(i).getStudentcode()) == null) {
 
             } else {
-                map.put("batchResult", studentList.get(i).getStudentcode());
-                map.put("result", -1);
-                throw new RuntimeException("学号重复");
+                temp = true;
+                arrayList.add(studentList.get(i).getStudentcode());
+
             }
+        }
+        if (temp){
+            map.put("batchResult", arrayList);
+            map.put("result", -1);
+            throw new RuntimeException("学号重复");
         }
         if (loginMapper.insertBatch(logins) == logins.size()) {
 //                System.out.println(JSON.toJSONString(logins));

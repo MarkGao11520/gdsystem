@@ -41,4 +41,8 @@ public interface LoginMapper {
      * @return
      */
     int insertBatch(List<Login> logins);
+
+    int resetTeacherPassword(@Param("Tloginids") Integer[] Tloginids,@Param("password") String password);
+    int resetStudentPassword(@Param("Sloginids") Integer[] Sloginids,@Param("password") String password);
+    int resetAdminPassword(@Param("Aloginids") Integer[] Aloginids,@Param("password") String password);
 }

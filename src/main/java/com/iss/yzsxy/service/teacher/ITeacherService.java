@@ -52,4 +52,11 @@ public interface ITeacherService {
      * @return
      */
     public int addBatch(List<Teacher> teacherList);
+    /**
+     * 重置教师密码
+     * @param loginids
+     * @return
+     */
+    public int resetTeacherPassword(Integer[] loginids);
+
 }

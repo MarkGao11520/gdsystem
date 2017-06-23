@@ -20,7 +20,7 @@ var roleid;
             roleid = result.role;
         },
         error:function (error) {
-            alert("访问服务器失败")
+            bootbox.alert("访问服务器失败")
         }
     })
 })();
@@ -46,13 +46,13 @@ function updateUserinfo() {
         },
         success:function (result) {
             if(result.result==1){
-                alert("编辑成功");
+                bootbox.alert("编辑成功");
             }else {
-                alert("编辑失败");
+                bootbox.alert("编辑失败");
             }
         },
         error:function (error) {
-            alert("访问服务器失败")
+            bootbox.alert("访问服务器失败")
         }
     })
 }
@@ -69,14 +69,14 @@ function updateUpwd() {
             },
             success: function (result) {
                 if (result.result == 1) {
-                    alert("修改密码成功,请重新登录");
+                    bootbox.alert("修改密码成功,请重新登录");
                     window.location.href = "./logout";
                 } else {
-                    alert("修改密码失败,请检查原始密码是否核对正确");
+                    bootbox.alert("修改密码失败,请检查原始密码是否核对正确");
                 }
             },
             error: function (error) {
-                alert("访问服务器失败")
+                bootbox.alert("访问服务器失败")
             }
         })
     }
@@ -84,15 +84,15 @@ function updateUpwd() {
 
 function check() {
     if($('#oldP').val()==null||$('#oldP').val()==""){
-        alert("旧密码不能为空");
+        bootbox.alert("旧密码不能为空");
         return false;
     }
     if($('#newP').val()==null||$('#newP').val()==""){
-        alert("新密码不能为空");
+        bootbox.alert("新密码不能为空");
         return false;
     }
     if($('#newP').val()!=$('#newP1').val()){
-        alert("两次密码不能重复");
+        bootbox.alert("两次密码不能重复");
         return false;
     }
     return true;

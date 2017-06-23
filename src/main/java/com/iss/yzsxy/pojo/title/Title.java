@@ -27,6 +27,16 @@ public class Title {
 
     private Integer isdel;
 
+    private Integer studentdesignid;
+
+    public Integer getStudentdesignid() {
+        return studentdesignid;
+    }
+
+    public void setStudentdesignid(Integer studentdesignid) {
+        this.studentdesignid = studentdesignid;
+    }
+
     public Long getCreateTime() {
         return createTime;
     }
@@ -58,9 +68,13 @@ public class Title {
 
         Title title = (Title) o;
 
-        return titleid != null ? titleid.equals(title.titleid) : title.titleid == null;
+        return titlename != null ? titlename.equals(title.titlename) : title.titlename == null;
     }
 
+    @Override
+    public int hashCode() {
+        return titlename != null ? titlename.hashCode() : 0;
+    }
 
     public int getSelectCount() {
         return selectCount;

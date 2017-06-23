@@ -42,6 +42,7 @@ public interface ITitleService {
      * @return
      */
     public int add(Title obj);
+    public int studentaddtitle(Title obj);
 
     /**
      * 获取各种数量

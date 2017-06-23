@@ -24,6 +24,7 @@ var titleNumArray = new Array();
  * @param rows
  */
 function findLists(page,rows){   //获取广告位列表
+    $('#tcList1').val($('#tcList').val())
     $.ajax({
         type:"get",
         url:GETTITLE_URL,
@@ -32,7 +33,7 @@ function findLists(page,rows){   //获取广告位列表
             "page":page,
             "rows":rows,
             "tname":$('#tNameKey').val(),
-            "titleclassid":$('#tcList').val()
+            "titleclassid":$('#tcList').val()==null?0:$('#tcList').val()==""?0:$('#tcList').val()
         },
 //		dataType:"JSONP",
         success:function(result){
@@ -46,7 +47,7 @@ function findLists(page,rows){   //获取广告位列表
             pages(resultPages,resultRows);
         },
         error:function(error){
-            alert("访问服务器失败");
+            bootbox.bootbox.alert("访问服务器失败");
         }
     });
 }
@@ -62,7 +63,7 @@ function findKvLists(){   //获取广告位列表
         url:GETTITLEKV_URL,
         async:true,
         data:{
-            "titleclassid":$('#tcList').val()
+            "titleclassid":$('#tcList').val()==null?0:$('#tcList').val()==""?0:$('#tcList').val()
         },
         success:function(result){
             titleArray.splice(0,titleArray.length);
@@ -75,7 +76,7 @@ function findKvLists(){   //获取广告位列表
             echart();
         },
         error:function(error){
-            alert("访问服务器失败");
+            bootbox.bootbox.alert("访问服务器失败");
         }
     });
 }
@@ -91,9 +92,10 @@ function getTcKVList() {
                 str += '<option value='+result[temp].titleclassid+'>'+result[temp].titleclassname+'</option>';
             }
             $('#tcList').html(str);
+            $('#tcList1').html(str);
         },
         error:function (error) {
-            alert("请求服务器失败");
+            bootbox.bootbox.alert("请求服务器失败");
         }
     })
 }
@@ -109,11 +111,11 @@ function getCountMap() {
                 $('#studentCount').html(result.studentCount)
                 $('#classCount').html(result.classCount)
             }else{
-                alert("获取总数失败");
+                bootbox.bootbox.alert("获取总数失败");
             }
         },
         error:function (error) {
-            alert("请求服务器失败");
+            bootbox.bootbox.alert("请求服务器失败");
         }
     })
 }
@@ -130,11 +132,11 @@ function add() {  //添加广告位
             data:{
                 "titlename":$('#tname').val(),
                 "titlecontent":$('#tcontent').val(),
-                "titleclassid":$('#tcList').val()
+                "titleclassid":$('#tcList1').val()
             },
             success:function(result){
                 if(result==1){
-                    alert("添加成功");
+                    bootbox.bootbox.alert("添加成功");
                     cloasPanal();
                     if(total%10!=0||total==0){
                         findLists(resultPages,10);
@@ -143,11 +145,11 @@ function add() {  //添加广告位
                     }
                 }
                 else{
-                    alert("添加失败");
+                    bootbox.bootbox.alert("添加失败");
                 }
             },
             error:function(error){
-                alert("访问服务器失败");
+                bootbox.bootbox.alert("访问服务器失败");
             }
         });
     }
@@ -167,19 +169,20 @@ function update(id) {
             data:{
                 "titleid":id,
                 "titlename":$('#tname').val(),
-                "titlecontent":$('#tcontent').val()
+                "titlecontent":$('#tcontent').val(),
+                "titleclassid":$('#tcList1').val()
             },
             success:function(result){
                 if(result==1){
-                    alert("编辑成功");
+                    bootbox.bootbox.alert("编辑成功");
                     cloasPanal();
                     findLists(pageNum,10);
                 }else{
-                    alert("编辑失败");
+                    bootbox.bootbox.alert("编辑失败");
                 }
             },
             error:function(error){
-                alert("访问服务器失败");
+                bootbox.bootbox.alert("访问服务器失败");
             }
         });
     }
@@ -197,7 +200,7 @@ function deleteall() {
         }
     }
     if (str.length==0) {
-        alert("您没有选择任何数据");
+        bootbox.bootbox.alert("您没有选择任何数据");
     } else {
         $.ajax({
             url: DELETETITLE_URL,
@@ -207,15 +210,15 @@ function deleteall() {
             contentType: "application/json;charset=utf-8", // 因为上面是JSON数据
             success: function (result) {
                 if(result==1){
-                    alert("删除成功");
+                    bootbox.bootbox.alert("删除成功");
                     findLists(pageNum,10);
                 }else{
-                    alert("删除失败");
+                    bootbox.bootbox.alert("删除失败");
                 }
             },
             error:function(error){
-                alert("访问服务器失败");
-                alert(error);
+                bootbox.bootbox.alert("访问服务器失败");
+                bootbox.bootbox.alert(error);
             }
 
         });
@@ -308,17 +311,16 @@ function cloasPanal() {
  * 打开导入窗口
  * @param id
  */
-function openExportFormPanal() {
+function openImportFormPanal() {
     $('#importWidget').show();
 }
 
 /**
  * 关闭导入窗口
  */
-function cloasExportPanal() {
+function closeImportPanal() {
     $('#importWidget').hide();
 }
-
 
 function addP() {
     $('#widgetHeader').html("添加题目类别");
@@ -334,6 +336,7 @@ function updateP(id) {
             var obj = list[i];
             $('#tname').val(obj.titlename);
             $('#tcontent').val(obj.titlecontent);
+            $('#tcList1').val(obj.titleclassid);
         }
     }
     $('#submitbtn').attr('onclick','update('+id+')');
@@ -355,11 +358,11 @@ function clear() {
  */
 function check() {   //验证
     if($('#tname').val()==""||$('#tname').val()==null){
-        alert("题目名称不能为空");
+        bootbox.bootbox.alert("题目名称不能为空");
         return false;
     }
     if($('#tcontent').val()==""||$('#tcontent').val()==null){
-        alert("题目内容不能为空");
+        bootbox.bootbox.alert("题目内容不能为空");
         return false;
     }
     return true;
@@ -409,30 +412,27 @@ function preImport() {
     })
         .on("fileuploaded",function (event,data,c,d) {
             if((data.response.result==1)){
-                alert("处理成功");
-                getClassList();
+                bootbox.bootbox.alert("处理成功");
                 findLists(1,10);
-                cloasExportPanal();
+                closeImportPanal();
             }else if(data.response.result==-1){
-                alert("学号为"+data.response.batchResult+"的记录重复，请检查后重新添加");
-                getClassList();
+                bootbox.bootbox.alert("学号为"+data.response.batchResult+"的记录重复，请检查后重新添加");
                 findLists(1,10);
-                cloasExportPanal();
+                closeImportPanal();
             }else if(data.response.result == -5){
-                alert("excel格式有误，请下载模板比对后重新导入");
-                cloasExportPanal();
+                bootbox.bootbox.alert("excel格式有误，请下载模板比对后重新导入");
+                closeImportPanal();
             }else{
-                alert("处理失败");
-                getClassList();
+                bootbox.bootbox.alert("处理失败");
                 findLists(1,10);
-                cloasExportPanal();
+                closeImportPanal();
             }
         })
         // .on("filebatchselected",function (event,files) {
         //     $(this).fileinput("upload");
         // })
         .on("fileerror",function (a,b,c) {
-            alert("访问服务器失败");
+            bootbox.bootbox.alert("访问服务器失败");
         });
 }
 

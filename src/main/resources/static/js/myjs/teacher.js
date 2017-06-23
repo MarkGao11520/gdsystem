@@ -43,8 +43,8 @@ function findLists(page,rows){   //获取广告位列表
             pages(resultPages,resultRows);
         },
         error:function(error){
-            alert("访问服务器失败");
-            alert(error);
+            bootbox.alert("访问服务器失败");
+            bootbox.alert(error);
         }
     });
 }
@@ -69,7 +69,7 @@ function add() {  //添加广告位
             },
             success:function(result){
                 if(result==1){
-                    alert("添加成功");
+                    bootbox.alert("添加成功");
                     cloasPanal();
                     if(total%10!=0||total==0){
                         findLists(resultPages,10);
@@ -77,14 +77,14 @@ function add() {  //添加广告位
                         findLists(resultPages+1,10);
                     }
                 }else if(result == -1){
-                    alert("该用户已经存在");
+                    bootbox.alert("该用户已经存在");
                 }
                 else{
-                    alert("添加失败");
+                    bootbox.alert("添加失败");
                 }
             },
             error:function(error){
-                alert("访问服务器失败");
+                bootbox.alert("访问服务器失败");
             }
         });
     }
@@ -113,15 +113,15 @@ function update(id) {
             },
             success:function(result){
                 if(result==1){
-                    alert("编辑成功");
+                    bootbox.alert("编辑成功");
                     cloasPanal();
                     findLists(pageNum,10);
                 }else{
-                    alert("编辑失败");
+                    bootbox.alert("编辑失败");
                 }
             },
             error:function(error){
-                alert("访问服务器失败");
+                bootbox.alert("访问服务器失败");
             }
         });
     }
@@ -139,7 +139,7 @@ function deleteall() {
         }
     }
     if (str.length==0) {
-        alert("您没有选择任何数据");
+        bootbox.alert("您没有选择任何数据");
     } else {
         $.ajax({
             url: DELETETEACHER_URL,
@@ -149,22 +149,60 @@ function deleteall() {
             contentType: "application/json;charset=utf-8", // 因为上面是JSON数据
             success: function (result) {
                 if(result==1){
-                    alert("删除成功");
+                    bootbox.alert("删除成功");
                     findLists(pageNum,10);
                 }else{
-                    alert("删除失败");
+                    bootbox.alert("删除失败");
                 }
             },
             error:function(error){
-                alert("访问服务器失败");
-                alert(error);
+                bootbox.alert("访问服务器失败");
+                bootbox.alert(error);
             }
 
         });
 
     }
 }
+/**
+ * 重置教师密码
+ */
+function resetTeacherPassword() {
+    var str = new Array() ;
+    var j=0
+    for (var i = 0; i < document.getElementsByName('teacherid').length; i++) {
+        if (document.getElementsByName('teacherid')[i].checked) {
+            str[j++]=document.getElementsByName('teacherid')[i].value;
+        }
+    }
+    if (str.length==0) {
+        bootbox.alert("您没有选择任何数据");
+    } else {
+        $.ajax({
+            url: RESETTEACHERPASSWORD_URL,
+            type: 'post',
+            cache: false,
+            data: JSON.stringify(str),
+            contentType: "application/json;charset=utf-8", // 因为上面是JSON数据
+            success: function (result) {
+                if(result==1){
+                    bootbox.alert("重置成功，且默认教师密码为88888888");
+                    findLists(pageNum,10);
+                }else if(result==-1){
+                    bootbox.alert("您没有权限");
+                }else {
+                    bootbox.alert("重置失败");
+                }
+            },
+            error:function(error){
+                bootbox.alert("访问服务器失败");
+                bootbox.alert(error);
+            }
 
+        });
+
+    }
+}
 /**
  * 将数据添加到表格
  * @param list
@@ -177,10 +215,10 @@ function table(list) {   //
             "<td>"+(i+1)+"</td>" +
             "<td><input name=\'teacherid\' value=\'"+obj.teacherid+"\' type=\"checkbox\" /></td>" +
             "<td>" + obj.teachername + "</td>"+
-            "<td>" + obj.teachercode + "</td>"+
-            "<td>" + obj.age + "</td>"+
+            "<td>" + (obj.teachercode==null?'-':obj.teachercode==""?'-':obj.teachercode) + "</td>"+
+            "<td>" + (obj.age==null?'-':obj.age==""?'-':obj.age) + "</td>"+
             "<td>" + (obj.sex==1?'男':'女') + "</td>"+
-            "<td>" + obj.phone + "</td>"+
+            "<td>" + (obj.phone==null?'-':obj.phone==""?'-':obj.phone) + "</td>"+
             "<td class=\"action-td\"><a href=\"javascript:updateTeacher("+obj.teacherid+")\" class=\"btn btn-small btn-warning\">编辑</a></td></tr>";
     }
     $("#tbody").html(str);
@@ -292,15 +330,15 @@ function clear() {
  */
 function check() {   //验证
     if($('#tname').val()==""||$('#tname').val()==null){
-        alert("姓名不能为空");
+        bootbox.alert("姓名不能为空");
         return false;
     }
     if($('#tcode').val()==""||$('#tcode').val()==null){
-        alert("工号不能为空");
+        bootbox.alert("工号不能为空");
         return false;
     }
     if($('#tphone').val()==""||$('#tphone').val()==null){
-        alert("手机号不能为空");
+        bootbox.alert("手机号不能为空");
         return false;
     }
     return true;

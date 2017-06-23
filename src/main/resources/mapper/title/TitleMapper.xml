@@ -133,6 +133,14 @@
       #{item}
     </foreach>
   </update>
+  <!--同意学生设计的题目-->
+  <update id="updateStudentDesignTitle">
+    UPDATE
+    tb_title
+    SET
+    isdel = 0
+    WHERE titleId = #{titleid}
+  </update>
 
   <select id="selectTitleIdByClassId" resultMap="BaseResultMap">
     SELECT
@@ -158,7 +166,7 @@
     WHERE
       titleName = #{titlename,jdbcType=INTEGER}
   </select>
-  <insert id="insertBatch">
+  <insert id="insertBatch" useGeneratedKeys="true" keyProperty="titleid">
     INSERT INTO tb_title(titleName,titleContent,titleClassId,createTeacherId) VALUES
       <foreach collection="list" item="item" separator=",">
         (#{item.titlename},#{item.titlecontent},#{item.titleclassid},#{item.createteacherid})

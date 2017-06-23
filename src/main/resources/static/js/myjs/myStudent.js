@@ -12,7 +12,6 @@ var sid;
 
 
 (function () {
-    getClassList();
     findLists(1,10);
     preImport();
 })()
@@ -42,14 +41,11 @@ function getClassList() {
 function findLists(page,rows){
     $.ajax({
         type:"get",
-        url:OBTIAN_STUDENTLIST_URL,
+        url:OBTIAN_STUDENTLISTBYTEACHER_URL,
         async:true,
         data:{
             "page":page,
-            "rows":rows,
-            "sname":$('#sNameKey').val(),
-            "scode":$('#scodeKey').val(),
-            "classid":$('#classList').val()==null?0:$('#classList').val()==""?0:$('#classList').val()
+            "rows":rows
         },
 //		dataType:"JSONP",
         success:function(result){
@@ -68,158 +64,11 @@ function findLists(page,rows){
     });
 }
 
-/**
- * 添加
- */
-function add() {  //添加广告位
-    if(check()){
-        $.ajax({
-            type:"get",
-            url:ADD_STUDENT_URL,
-            async:true,
-            data:{
-                "studentcode":$('#scode').val(),
-                "username":$('#scode').val(),
-                "studentname":$('#sname').val(),
-                "classid":$('#classList').val(),
-                "sex":$('#ssex').val(),
-                "age":$('#sage').val(),
-                "phone":$('#sphone').val(),
-                "departments":$('#sdepartments').val(),
-                "grade":$('#sgrage').val(),
-                "major":$('#smajor').val()
-
-            },
-            success:function(result){
-                if(result==1){
-                    bootbox.alert("添加成功");
-                    cloasPanal();
-                    if(total%10!=0||total==0){
-                        findLists(resultPages,10);
-                    }else {
-                        findLists(resultPages+1,10);
-                    }
-                }else if(result == -1){
-                    bootbox.alert("该用户已经存在");
-                }
-                else{
-                    bootbox.alert("添加失败");
-                }
-            },
-            error:function(error){
-                bootbox.alert("访问服务器失败");
-            }
-        });
-    }
-}
 
 
-/**
- * 编辑
- * @param id
- */
-function update(id) {
-    if(check()){
-        $.ajax({
-            type:"get",
-            url:UPDATE_STUDENT_URL,
-            async:true,
-            data:{
-                "studentid":id,
-                "studentcode":$('#scode').val(),
-                "username":$('#scode').val(),
-                "studentname":$('#sname').val(),
-                "classid":$('#classList').val(),
-                "sex":$('#ssex').val(),
-                "age":$('#sage').val(),
-                "phone":$('#sphone').val(),
-                "departments":$('#sdepartments').val(),
-                "grade":$('#sgrage').val(),
-                "major":$('#smajor').val()
-            },
-            success:function(result){
-                if(result==1){
-                    bootbox.alert("编辑成功");
-                    cloasPanal();
-                    findLists(pageNum,10);
-                }else{
-                    bootbox.alert("编辑失败");
-                }
-            },
-            error:function(error){
-                bootbox.alert("访问服务器失败");
-            }
-        });
-    }
-}
 
-/**
- * 分配教师
- * @param id
- */
-function teacher(id) {
-        $.ajax({
-            type:"get",
-            url:UPDATE_STUDENT_URL,
-            async:true,
-            data:{
-                "studentid":id,
-                "teacherId1":$('#teacher1').val(),
-                "teacherId2":$('#teacher2').val(),
-                "teacherId2Phone":$('#teacherId2Phone').val()
-            },
-            success:function(result){
-                if(result==1){
-                    bootbox.alert("编辑成功");
-                    closeTeacherPanal();
-                    findLists(pageNum,10);
-                }else{
-                    bootbox.alert("编辑失败");
-                }
-            },
-            error:function(error){
-                bootbox.alert("访问服务器失败");
-            }
-        });
-}
 
-/**
- * 删除
- */
-function deleteall() {
-    var str = new Array() ;
-    var j=0
-    for (var i = 0; i < document.getElementsByName('studentid').length; i++) {
-        if (document.getElementsByName('studentid')[i].checked) {
-            str[j++]=document.getElementsByName('studentid')[i].value;
-        }
-    }
-    if (str.length==0) {
-        bootbox.alert("您没有选择任何数据");
-    } else {
-        $.ajax({
-            url: DELETE_STUDENT_URL,
-            type: 'post',
-            cache: false,
-            data: JSON.stringify(str),
-            contentType: "application/json;charset=utf-8", // 因为上面是JSON数据
-            success: function (result) {
-                if(result==1){
-                    bootbox.alert("删除成功");
-                    findLists(pageNum,10);
-                }else{
-                    bootbox.alert("删除失败");
-                }
-            },
-            error:function(error){
-                bootbox.alert("访问服务器失败");
-                bootbox.alert(error);
-            }
 
-        });
-
-    }
-}
 /**
  * 重置学生密码
  */
@@ -259,102 +108,10 @@ function resetStudentPassword() {
 
     }
 }
-/**
- * 随机分配题目
- */
-function assigenTitleAll() {
-    $.ajax({
-        type:'get',
-        url:ASSIGEN_SUBJECT_ALL_URL,
-        data:{
-            classid:$('#classList').val()
-        },
-        success:function (result) {
-          if(result.result==1){
-              bootbox.alert("分配成功");
-              findLists(pageNum,10);
-          }else if(result.result == -2){
-              bootbox.alert("可分配题目数量不足")
-          }else if(result.result == -3){
-              bootbox.alert("权限错误");
-          }else if(result.result == -4){
-              bootbox.alert("该班级已经随机分配");
-          }else{
-              bootbox.alert("分配失败");
-          }
-        },
-        error:function(error){
-            bootbox.alert("访问服务器失败");
-            bootbox.alert(error);
-        }
-    })
-}
 
-function assigenOne(id) {
-    $.ajax({
-        type:'get',
-        url:ASSIGEN_SUBJECT_ONE_URL,
-        data:{
-            classid:$('#classList').val(),
-            studentid:id
-        },
-        success:function (result) {
-            if(result.result==1){
-                bootbox.alert("分配成功");
-                findLists(pageNum,10);
-            }else if(result.result == -2){
-                bootbox.alert("可分配题目数量不足")
-            }else if(result.result == -3){
-                bootbox.alert("权限错误");
-            }
-            else{
-                bootbox.alert("分配失败");
-            }
-        },
-        error:function(error){
-            bootbox.alert("访问服务器失败");
-            bootbox.alert(error);
-        }
-    })
-}
 
-function assigenOneSpecified(id) {
-    $.ajax({
-        type:'get',
-        url:ASSIGEN_SUBJECT_ONE_SPECIFIED_URL,
-        data:{
-            classid:$('#classList').val(),
-            studentid:id,
-            titleid:$('#titleList').val()
-        },
-        success:function (result) {
-            if(result.result==1){
-                bootbox.alert("分配成功");
-                findLists(pageNum,10);
-                cloasAssigenPanal();
-            }else if(result.result == -2){
-                bootbox.alert("可分配题目数量不足")
-            }else if(result.result == -3){
-                bootbox.alert("权限错误");
-            }
-            else{
-                bootbox.alert("分配失败");
-            }
-        },
-        error:function(error){
-            bootbox.alert("访问服务器失败");
-            bootbox.alert(error);
-        }
-    })
-}
 
-function exportWordList() {
-    window.location.href=EXPORT_WORDLIST_URL+"?classid="+$('#classList').val();
-}
 
-function exportExcel() {
-    window.location.href=EXPORT_EXCEL_URL+"?classid="+$('#classList').val();
-}
 
 /**
  * 将数据添加到表格
@@ -366,16 +123,12 @@ function table(list) {   //
         var obj = list[i];
         str += "<tr id=\"student_"+obj.studentid+"\">" +
             "<td>"+(i+1)+"</td>" +
-            "<td><input name=\'studentid\' value=\'"+obj.studentid+"\' type=\"checkbox\" /></td>" +
             "<td>" + obj.studentname + "</td>"+
             "<td>" + obj.studentcode + "</td>"+
             "<td>" + (obj.teacherId2==null?'无':obj.teacherId2==''?'无':obj.teacherId2) + "</td>"+
             "<td>" + (obj.teacherId1==null?'无':obj.teacherId1==''?'无':obj.teacher1.teachername) + "</td>"+
             "<td>" + (obj.title==null?'未选题':obj.title.titlename) + "</td>"+
-            "<td class=\"action-td\"><a href=\"javascript:updateStudent("+obj.studentid+")\" class=\"btn btn-small btn-warning\">编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;辑</a>" +
-            "<a href=\"javascript:assigenOne("+obj.studentid+")\" class=\"btn btn-small btn-warning\">随机分配</a>" +
-            "<a href=\"javascript:openAssigenPanal("+obj.studentid+")\" class=\"btn btn-small btn-warning\">指定分配</a>" +
-            "<a href=\"javascript:openTeacherPanal("+obj.studentid+")\" class=\"btn btn-small btn-warning\">分配教师</a>" +
+            "<td class=\"action-td\"><a href=\"javascript:updateStudent("+obj.studentid+")\" class=\"btn btn-small btn-warning\">详&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;情</a>" +
             "</td></tr>";
     }
     $("#tbody").html(str);
@@ -543,7 +296,7 @@ function addStudent() {
 }
 
 function updateStudent(id) {
-    $('#studentWidgetHeader').html("编辑学生");
+    $('#studentWidgetHeader').html("详情");
     for(var i=0;i<list.length;i++) {
         if (id == list[i].studentid) {
             var obj = list[i];
@@ -555,6 +308,7 @@ function updateStudent(id) {
             $('#sdepartments').val(obj.departments);
             $('#sgrage').val(obj.grade);
             $('#smajor').val(obj.major);
+            $('#className').val(obj.classes.className);
 
         }
     }

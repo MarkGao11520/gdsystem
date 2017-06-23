@@ -64,11 +64,11 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
-		<!--<dependency>-->
-			<!--<groupId>org.springframework.boot</groupId>-->
-			<!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
-			<!--<scope>provided</scope>-->
-		<!--</dependency>-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -114,6 +114,13 @@
 			<groupId>com.belerweb</groupId>
 			<artifactId>pinyin4j</artifactId>
 			<version>2.5.0</version>
+		</dependency>
+
+		<dependency>
+			<!--Spring 官方提供的热部署插件 -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<version>1.4.3.RELEASE</version>
 		</dependency>
 	</dependencies>
 

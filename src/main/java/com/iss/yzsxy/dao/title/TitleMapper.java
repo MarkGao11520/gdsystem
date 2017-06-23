@@ -17,13 +17,15 @@ public interface TitleMapper {
 
     int insertSelective(Title record);
 
-    int insertBatch(@Param("list") List<Title> titleList);
+    int insertBatch(List<Title> list);
 
     Title selectByPrimaryKey(Integer titleid);
 
     Title selectByTitleName(String titlename);
 
     int updateByPrimaryKeySelective(Title record);
+
+    int updateStudentDesignTitle(Integer titleid);
 
     int updateByPrimaryKey(Title record);
 

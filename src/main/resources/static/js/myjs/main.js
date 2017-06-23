@@ -12,10 +12,11 @@
             if(result.pic!=null&&result.pic!="")
             $('#userPic').attr('src',result.pic);
             $('#num1').html(result.num);
-            $('#num2').html(result.num);
+            $('#num2').html(result.num1);
+            $('#num3').html(result.num2);
         },
         error:function (error) {
-            alert("访问服务器失败")
+            bootbox.alert("访问服务器失败")
         }
     })
 })();
@@ -53,11 +54,11 @@ function preImageUpload() {
     })
         .on("fileuploaded",function (event,data,c,d) {
             if((data.response.result==1)){
-                alert("上传成功");
+                bootbox.alert("上传成功");
                 $('#userPic').attr("src",data.response.url);
                 closeImagePanal();
             }else{
-                alert("上传失败");
+                bootbox.alert("上传失败");
                 closeImagePanal();
             }
         })
@@ -65,6 +66,6 @@ function preImageUpload() {
         //     $(this).fileinput("upload");
         // })
         .on("fileerror",function (a,b,c) {
-            alert("访问服务器失败");
+            bootbox.alert("访问服务器失败");
         });
 }

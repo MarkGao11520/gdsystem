@@ -15,7 +15,8 @@
     
     <link href="./css/adminia.css" rel="stylesheet" /> 
     <link href="./css/adminia-responsive.css" rel="stylesheet" /> 
-    
+
+
     
     <link href="./css/pages/plans.css" rel="stylesheet" />
 	  <link href="./css/fileinput.min.css" rel="stylesheet"/>
@@ -42,7 +43,7 @@
 				<span class="icon-bar"></span> 				
 			</a>
 			
-			<a class="brand" href="./">软通学生毕业设计题目分配系统</a>
+			<a class="brand" href="./"><img src="temp/logo.ico" height="auto" width="101"/> 软通学生毕业设计题目分配系统</a>
 			
 			<div class="nav-collapse">
 			
@@ -61,8 +62,6 @@
 							<li>
 								<a href="./account"><i class="icon-user"></i> 账号设置  </a>
 							</li>
-							
-
 							
 							<li class="divider"></li>
 							
@@ -160,12 +159,7 @@
 						</a>
 					</li>
 					
-					<li>
-						<a href="./account">
-							<i class="icon-user"></i>
-							用户账号					
-						</a>
-					</li>
+
 					
 
 					
@@ -215,49 +209,41 @@
 				<!--头像上传结束-->
 
 				<div  class="widget">
-					<div id="teacherWidget" hidden="hidden" class="row" style="position: fixed;z-index: 1; bottom: 1%;overflow-y:scroll;">
-						<div class="span2">
-							<div class="widget"></div>
-						</div>
-						<div class="span4">
+					<div id="teacherWidget" hidden="hidden" class="row" style="position: fixed;z-index: 1; top: 15%;overflow-y:scroll;">
+
+						<div class="span8">
 							<div class="widget">
 								<div id="teacherWidgetHeader" align="center" class="widget-header">
 								</div>
 								<div class="widget-content">
 									<div class="input-group" style="padding: 10px">
-										<span  class="input-group-addon">教师姓名</span>
+										<span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;姓名</span>
 										<input id="tname" type="text" class="form-control" placeholder="请输入教师姓名" /><span style="color: red">*</span>
-									</div>
-									<div  class="input-group" style="padding: 10px">
-										<span  class="input-group-addon">教师工号</span>
+										<span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;工号</span>
 										<input id="tcode" type="text" class="form-control" placeholder="请输入教师工号" /><span style="color: red">*</span>
 									</div>
 									<div  class="input-group" style="padding: 10px">
-										<span  class="input-group-addon">教师性别</span>
+										<span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;性别</span>
 										<select id="tsex">
 											<option value="1">男</option>
 											<option value="0">女</option>
 										</select>
+										<span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;年龄</span>
+										<input id="tage" type="number" class="form-control" placeholder="请输入教师年龄" />
 									</div>
 									<div class="input-group" style="padding: 10px">
-										<span  class="input-group-addon">教师年龄</span>
-										<input id="tage" type="text" class="form-control" placeholder="请输入教师年龄" />
-									</div>
-									<div class="input-group" style="padding: 10px">
-										<span  class="input-group-addon">&nbsp;&nbsp;&nbsp;qq号码</span>
+										<span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qq</span>
 										<input id="tqq" type="text" class="form-control" placeholder="请输入qq号" />
-									</div>
-									<div class="input-group" style="padding: 10px">
-										<span  class="input-group-addon">微信号码</span>
+										<span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;微信</span>
 										<input id="twechat" type="text" class="form-control" placeholder="请输入微信号" />
 									</div>
 									<div class="input-group" style="padding: 10px">
-										<span  class="input-group-addon">手机号码</span>
+										<span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;手机</span>
 										<input id="tphone" type="text" class="form-control" placeholder="请输入教师手机号" />
 										<span style="color: red">*</span>
 									</div>
 
-									<div style="margin: 0 auto">
+									<div class="input-group" align="center" style="margin: 0 auto">
 										<button id="submitbtn"  onclick="" type="button" style="width: 45%;" class="btn btn-warning ">提交</button>
 
 										<button type="button" onclick="cloasPanal()" class="btn btn-danger" style="width: 45%;">取消</button>
@@ -269,6 +255,7 @@
 
 					<button onclick="addTeacher()" class="btn btn-warning">新增教师</button>
 					<button  onclick="deleteall()" class="btn btn-warning">删除教师</button>
+					<button onclick="resetTeacherPassword()" class="btn btn-warning">重置教师密码</button>
 					<div class="input-group" >
 						<input id="tNameKey" style="margin-top: 1%" type="text" class="input-medium" placeholder="姓名/可模糊"/>
 						<input id="tCodeKey" style="margin-top: 1%" type="text" class="input-medium" placeholder="工号"/>
@@ -287,7 +274,7 @@
 							<table class="table table-striped table-bordered">
 								<thead>
 								<tr>
-									<th></th>
+									<th>序号</th>
 									<th></th>
 									<th>教师姓名</th>
 									<th>教师编号</th>
@@ -325,9 +312,10 @@
 	</div> <!-- /container -->
 	
 </div> <!-- /content -->
-					
+<br></br>	<br></br><br></br>
+
 	
-<div id="footer">
+<div  style="position: fixed;bottom: 0;text-align: center">
 	
 	<div class="container">				
 		<hr />
@@ -346,6 +334,7 @@
 
 
 <script src="./js/bootstrap.js"></script>
+<script src="./js/bootbox.js"></script>
 <script src="./js/myjs/fileinput.min.js"></script>
 <script src="./js/myjs/fileinput_locale_zh.js"></script>
 <script src="./js/myjs/url.js"></script>

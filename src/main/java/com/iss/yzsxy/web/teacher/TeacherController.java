@@ -31,6 +31,7 @@ public class TeacherController {
     ITeacherService teacherService;
 
 
+
     /**
      * 查找教师信息
      * @param teacherPojo
@@ -80,4 +81,15 @@ public class TeacherController {
             return 0;
         }
     }
+    /**
+     * 重置教师密码
+     * @param loginids
+     * @return
+     */
+    @RequestMapping("/resetTeacherPassword")
+    @ResponseBody
+    public int resetTeacherPassword(@RequestBody Integer[] loginids){
+        return teacherService.resetTeacherPassword(loginids);
+    }
+
 }

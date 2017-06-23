@@ -14,6 +14,8 @@ import com.iss.yzsxy.tools.ChineseToEnglish;
 import com.iss.yzsxy.tools.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sun.rmi.runtime.Log;
@@ -33,6 +35,8 @@ public class TeacherServiceImpl implements ITeacherService {
     TeacherMapper teacherMapper;
     @Autowired
     LoginMapper loginMapper;
+    @Autowired
+    Md5PasswordEncoder passwordEncoder;
 
     /**
      * 查询教师列表
@@ -114,7 +118,7 @@ public class TeacherServiceImpl implements ITeacherService {
             return -1;
         }else {
             try {
-                login.setPassword("88888888");
+                login.setPassword(passwordEncoder.encodePassword("88888888",null));
                 login.setRoleid(3);
                 if(loginMapper.insertSelective(login)==1){
                     teacher.setTeacherid(login.getLoginid());
@@ -145,22 +149,23 @@ public class TeacherServiceImpl implements ITeacherService {
     public int addBatch(List<Teacher> teacherList) {
         try {
             for (Teacher teacher:teacherList) {
+                System.out.println(JSON.toJSONString(teacher));
                 if(teacherMapper.selectTeacherByTeacherName(teacher.getTeachername())==null){
                     Login login = new Login();
                     login.setUsername(ChineseToEnglish.getPingYin(teacher.getTeachername()));
                         try {
-                            login.setPassword("88888888");
+                            login.setPassword(passwordEncoder.encodePassword("88888888",null));
                             login.setRoleid(3);
                             if(loginMapper.insertSelective(login)==1){
                                 teacher.setTeacherid(login.getLoginid());
                                 teacher.setCreateuid(Tools.obtainPrincipal().getId());
                                 if(teacherMapper.insertSelective(teacher)==1){
-                                    return 1;
+
                                 }else{
                                     throw new RuntimeException("Login表添加成功，teacher表添加失敗");
                                 }
                             }else {
-                                return 0;
+                                throw new RuntimeException("Login表添加失败");
                             }
                         }catch (Exception e){
                             e.printStackTrace();
@@ -176,6 +181,28 @@ public class TeacherServiceImpl implements ITeacherService {
             throw new RuntimeException("teacherservice教师表添加失败");
         }
     }
+    @Override
+    public int resetTeacherPassword(Integer[] loginids) {
+        int result = 0;
+        String password;
+        if (Tools.obtainPrincipal().getRoles().equals("0")||Tools.obtainPrincipal().getRoles().equals("1")){
+            try {
+                password = passwordEncoder.encodePassword("88888888",null);
+                if (loginMapper.resetTeacherPassword(loginids,password)==loginids.length){
+                    result = 1;//重置成功；
+                }else {
+                    result = 0;
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+                result = 0;
+            }
+        }else {
+            result = -1;//您沒有權限
+        }
+        return result;
+    }
+
 
 
     public boolean resultHandler(List<Teacher> result){

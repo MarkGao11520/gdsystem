@@ -29,11 +29,16 @@ public interface StudentMapper {
 
     List<Student> selectUnSelectedStudentByClassId(@Param("classId") Integer classId);
 
+    int agreeDesignTitle(Integer studentid);
+
     int updateStudentBatch(List<Student> list);
 
     List<Student> selectChangeStudentList(Integer teacherid);
 
+    List<Student> selectStudentDesignList(Integer teacherid);
+
     int updateStateBatch(@Param("studentids") Integer[] studentids,@Param("state") String state);
 
+    List<Student> selectStudentByTeacherId(Integer tId);
 
 }

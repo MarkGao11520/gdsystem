@@ -17,6 +17,8 @@ import com.iss.yzsxy.tools.WordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -44,6 +46,8 @@ public class UserServiceImpl implements IUserService{
     AdminMapper adminMapper;
     @Autowired
     TeacherMapper teacherMapper;
+    @Autowired
+    Md5PasswordEncoder passwordEncoder;
 
     private String tempUrl;
 
@@ -57,7 +61,10 @@ public class UserServiceImpl implements IUserService{
 
     @Override
     public Map<String, Object> updatePassword(String username, String password, String newPassword) {
-        System.out.println(username+" "+password+" "+newPassword);
+
+        password = passwordEncoder.encodePassword(password,null);
+        newPassword = passwordEncoder.encodePassword(newPassword,null);
+
         int result = 0;
         try {
             result = loginMapper.updatePassword(newPassword, username, password);
@@ -193,12 +200,15 @@ public class UserServiceImpl implements IUserService{
                     break;
                 case 3:
                     Teacher teacher = teacherMapper.selectByPrimaryKey(sysUser.getId());
-                    int num = studentMapper.selectChangeStudentList(teacher.getTeacherid()).size();
+                    int num1 = studentMapper.selectChangeStudentList(teacher.getTeacherid()).size();
+                    int num2 = studentMapper.selectStudentDesignList(teacher.getTeacherid()).size();
                     o = teacher;
                     map1.put("pic",teacher.getTeacherpic());
                     map1.put("realname",teacher.getTeachername());
                     map1.put("code",teacher.getTeachercode());
-                    map1.put("num",num);
+                    map1.put("num1",num1);
+                    map1.put("num2",num2);
+                    map1.put("num",num1+num2);
                     break;
             }
             map1.put("result",o);

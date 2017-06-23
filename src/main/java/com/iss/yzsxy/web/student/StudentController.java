@@ -13,10 +13,7 @@ import com.iss.yzsxy.tools.ZipUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -97,6 +94,16 @@ public class StudentController {
             return 0;
         }
     }
+    /**
+     * 重置学生密码
+     * @param loginids
+     * @return
+     */
+    @RequestMapping("/resetStudentPassword")
+    @ResponseBody
+    public int resetStudentPassword(@RequestBody Integer[] loginids){
+        return studentService.resetStudentPassword(loginids);
+    }
 
     /**
      * excel导入
@@ -156,17 +163,27 @@ public class StudentController {
         return studentService.getUnSelectTitleByClassId(classid);
     }
 
+    @RequestMapping("agreeDesignTitle")
+    @ResponseBody
+    public int agreeDesignTitle(Integer studentid){
+        return studentService.agreeDesignTitleByStudentId(studentid);
+    }
 
     @RequestMapping("getChangeStudentList")
     @ResponseBody
     public PageInfo<Student> getChangeStudentList(int page,int rows){
         return studentService.getChangeStudentList(page, rows);
     }
+    @RequestMapping("getStudentDesignTitleList")
+    @ResponseBody
+    public PageInfo<Student> getStudentDesignTitleList(int page, int rows){
+        return studentService.studentDesignTitleList(page, rows);
+    }
 
     @RequestMapping("changeStateBatch")
     @ResponseBody
-    public Map<String,Object> changeStateBatch(@RequestBody Integer[] studentIds){
-        return studentService.doChangeState(studentIds,"2");
+    public Map<String,Object> changeStateBatch(String studentIds, String state){
+        return studentService.doChangeState(Tools.stringsToIntegers(studentIds.split(",")),state);
     }
 
     @RequestMapping("changeTitleBatch")
@@ -220,5 +237,11 @@ public class StudentController {
                 response.setHeader("refresh","3;URL=../assigen");
             }        }
 
+    }
+
+    @RequestMapping("getStudentListByTeacherId")
+    @ResponseBody
+    public PageInfo<Student> getStudentListByTeacherId(StudentDto studentDto){
+        return studentService.getStudentByTeacherId(studentDto);
     }
 }

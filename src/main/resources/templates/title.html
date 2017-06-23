@@ -15,7 +15,8 @@
     
     <link href="./css/adminia.css" rel="stylesheet" /> 
     <link href="./css/adminia-responsive.css" rel="stylesheet" /> 
-    
+
+
     <link href="./css/pages/dashboard.css" rel="stylesheet" /> 
     <link href="./css/bootstrap-theme.min.css" rel="stylesheet" />
 	  <link href="./css/fileinput.min.css" rel="stylesheet"/>
@@ -42,7 +43,7 @@
 				<span class="icon-bar"></span> 				
 			</a>
 			
-			<a class="brand" href="./">软通学生毕业设计题目分配系统</a>
+			<a class="brand" href="./"><img src="temp/logo.ico" height="auto" width="101"/> 软通学生毕业设计题目分配系统</a>
 			
 			<div class="nav-collapse">
 			
@@ -134,6 +135,13 @@
 							<span id="num2" class="label label-warning pull-right">5</span>
 						</a>
 					</li>
+					<li>
+						<a href="./studentdesigntitle">
+							<i class="icon-th-large"></i>
+							学设审批
+							<span id="num3" class="label label-warning pull-right">5</span>
+						</a>
+					</li>
 
 					<li >
 						<a href="./assigen">
@@ -141,15 +149,14 @@
 							题目分配
 						</a>
 					</li>
-
-					
-					<li>
-						<a href="./teacheraccount">
-							<i class="icon-user"></i>
-							用户账号					
+					<li >
+						<a href="./myStudent">
+							<i class="icon-th-large"></i>
+							我的学生
 						</a>
 					</li>
-					
+
+
 				</ul>	
 				
 				<hr />
@@ -203,6 +210,10 @@
 								<div id="widgetHeader" align="center" class="widget-header">
 								</div>
 								<div class="widget-content">
+									<div class="controls" style="padding: 10px">
+										<span  class="input-group-addon">题目类型</span>
+										<select id="tcList1" style="margin-top: 1%"></select>
+									</div>
 									<div class="controls" style="padding: 10px">
 										<span  class="input-group-addon">题目名称</span>
 										<input  id="tname" type="text" class="input-large" placeholder="请输入题目名称" /><span style="color: red">*</span>
@@ -320,9 +331,10 @@
 	</div> <!-- /container -->
 	
 </div> <!-- /content -->
-					
-	
-<div id="footer">
+<br></br>	<br></br><br></br>
+
+
+<div  style="position: fixed;bottom: 0;text-align: center">
 	
 	<div class="container">				
 		<hr />
@@ -337,6 +349,7 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="./js/jquery-1.7.2.min.js"></script>
 <script src="./js/bootstrap.js"></script>
+<script src="./js/bootbox.js"></script>
 <script src="./js/myjs/echart.js"></script>
 <script src="./js/myjs/fileinput.min.js"></script>
 <script src="./js/myjs/fileinput_locale_zh.js"></script>

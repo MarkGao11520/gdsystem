@@ -28,10 +28,20 @@ var UPDATE_ADMIN_URL = URL+"adminController/updateAdmin";
  */
 var ADD_ADMIN_URL = URL+"adminController/addAdmin";
 /**
+ * 重置管理员密码
+ * @type {string}
+ */
+var RESETADMINPASSWORD_URL = URL+"adminController/resetAdminPassword"
+/**
  * 获取学生列表
  * @type {string}
  */
 var OBTIAN_STUDENTLIST_URL = URL+"studentController/studentSelectList";
+/**
+ * 获取学生列表根据教师
+ * @type {string}
+ */
+var OBTIAN_STUDENTLISTBYTEACHER_URL = URL+"studentController/getStudentListByTeacherId";
 /**
  * 删除学生信息
  * @type {string}
@@ -47,6 +57,11 @@ var UPDATE_STUDENT_URL = URL+"studentController/studentUpdate";
  * @type {string}
  */
 var ADD_STUDENT_URL = URL+"studentController/studentAdd";
+/**
+ * 重置教师密码
+ * @type {string}
+ */
+var RESETSTUDENTPASSWORD_URL = URL+"studentController/resetStudentPassword";
 /**
  * 获取教师列表
  * @type {string}
@@ -72,6 +87,11 @@ var DELETETEACHER_URL = URL+"teacherController/teacherDelete";
  * @type {string}
  */
 var TEACHER_KVLIST_URL = URL+"teacherController/teacherKVSelectList";
+/**
+ * 重置教师密码
+ * @type {string}
+ */
+var RESETTEACHERPASSWORD_URL = URL+"teacherController/resetTeacherPassword";
 /**
  * 获取班级列表
  * @type {string}
@@ -159,6 +179,11 @@ var GETTITLEKV_URL = URL+"titleController/getKvList";
  */
 var ADDTITLE_URL = URL+"titleController/add";
 /**
+ * 学生设计题目
+ * @type {string}
+ */
+var STUDENTADDTITLE_URL = URL+"titleController/studentaddtitle";
+/**
  * 编辑题目
  * @type {string}
  */
@@ -223,7 +248,11 @@ var ASSIGEN_SUBJECT_ONE_SPECIFIED_URL = URL+"studentController/assignedSubjectOn
  * @type {string}
  */
 var GET_SELECTED_TITLE_URL = URL+"studentController/getUnSelectTitle";
-
+/**
+ * 同意学生设计的题目
+ * @type {string}
+ */
+var AGREESTUDENTDESIGNTITLE = URL+"studentController/agreeDesignTitle";
 /**
  * 学生列表中获取班级信息
  * @type {string}
@@ -234,7 +263,11 @@ var GETCLASSSELECT_URL =URL+"classController/getClassKVList"
  * @type {string}
  */
 var GET_CHANGE_STUDENT =URL+"studentController/getChangeStudentList"
-
+/**
+ * 获取设计学生题目列表
+ * @type {string}
+ */
+var GET_DESIGNSTUDENTLIST = URL+"studentController/getStudentDesignTitleList"
 /**
  * 批量更改状态
  * @type {string}

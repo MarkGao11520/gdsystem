@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
 
+
     <link href="./css/bootstrap.min.css" rel="stylesheet"/>
     <link href="./css/bootstrap-responsive.min.css" rel="stylesheet"/>
 
@@ -42,7 +43,7 @@
                 <span class="icon-bar"></span>
             </a>
 
-            <a class="brand" href="./">软通学生毕业设计题目分配系统</a>
+            <a class="brand" href="./"><img src="temp/logo.ico" height="auto" width="101"/> 软通学生毕业设计题目分配系统</a>
 
             <div class="nav-collapse">
 
@@ -131,8 +132,13 @@
                             <span id="num2" class="label label-warning pull-right">5</span>
                         </a>
                     </li>
-
-
+                    <li>
+                        <a href="./studentdesigntitle">
+                            <i class="icon-th-large"></i>
+                            学设审批
+                            <span id="num3" class="label label-warning pull-right">5</span>
+                        </a>
+                    </li>
                     <li class="active">
                         <a href="./assigen">
                             <i class="icon-th-large"></i>
@@ -141,9 +147,9 @@
                     </li>
 
                     <li>
-                        <a href="./teacheraccount">
+                        <a href="./myStudent">
                             <i class="icon-th-list"></i>
-                            用户账号
+                            我的学生
                         </a>
                     </li>
 
@@ -233,11 +239,12 @@
                         <table class="table table-striped table-bordered">
                             <thead>
                             <tr>
+                                <th>序号</th>
                                 <th></th>
-                                <th></th>
-                                <th>用户名</th>
                                 <th>姓名</th>
                                 <th>学号</th>
+                                <th>校导</th>
+                                <th>企业导师</th>
                                 <th>选题名称</th>
                                 <th>操作</th>
                             </tr>
@@ -263,9 +270,10 @@
     </div> <!-- /container -->
 
 </div> <!-- /content -->
+<br></br>	<br></br><br></br>
 
 
-<div id="footer">
+<div style="position: fixed;bottom: 0;text-align: center">
 
     <div class="container">
         <hr/>
@@ -279,13 +287,16 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="./js/jquery-1.7.2.min.js"></script>
+<script src="./js/bootstrap.js"></script>
+<script src="./js/bootbox.js"></script>
 <script src="./js/myjs/fileinput.min.js"></script>
 <script src="./js/myjs/fileinput_locale_zh.js"></script>
 
 <script src="./js/myjs/url.js"></script>
 <script src="./js/myjs/student.js"></script>
 <script src="./js/myjs/main.js"></script>
-<script src="./js/bootstrap.js"></script>
+
+
 
 </body>
 </html>

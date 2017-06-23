@@ -23,6 +23,8 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -48,6 +50,8 @@ public class AdminServiceImpl implements IAdminService{
     ITeacherService teacherService;
     @Autowired
     ITitleClassService titleClassService;
+    @Autowired
+    Md5PasswordEncoder passwordEncoder;
     /**
      * 查询管理员列表
      * @param adminDto
@@ -115,6 +119,8 @@ public class AdminServiceImpl implements IAdminService{
         return result;
     }
 
+
+
     @Override
     @Transactional
     public int addAdmin(Admin admin) {
@@ -127,7 +133,7 @@ public class AdminServiceImpl implements IAdminService{
                 result = -1;//用戶名存在不能添加
             }else {
                 try {
-                    login.setPassword("123456");
+                    login.setPassword(passwordEncoder.encodePassword("123456",null));
                     login.setRoleid(1);
                     if (loginMapper.insertSelective(login) == 1){
                         admin.setAdminid(login.getLoginid());
@@ -205,10 +211,14 @@ public class AdminServiceImpl implements IAdminService{
                         teacher.setTeachername(value[3]);
                         teacher.setCreateuid(Tools.obtainPrincipal().getId());
                         title.setTeacher(teacher);
+                        title.setCreateTime(new Date().getTime());
 
-                        titles.add(title);
-                        titleClasses.add(titleClass);
-                        teachers.add(teacher);
+                        if(!titles.contains(title)&&title.getTitlename()!=null&&title.getTitlename()!=""){
+                            titles.add(title);
+                            titleClasses.add(titleClass);
+                            teachers.add(teacher);
+                        }
+
                     }
                 }
             }
@@ -220,6 +230,30 @@ public class AdminServiceImpl implements IAdminService{
 
         }
     }
+
+    @Override
+    public int resetAdminPassword(Integer[] loginids) {
+        String password;
+        int result = 0;
+        if (Tools.obtainPrincipal().getRoles().equals("0")){
+            try {
+                password = passwordEncoder.encodePassword("123456",null) ;
+                if (loginMapper.resetAdminPassword(loginids,password)==loginids.length){
+                    result = 1;
+                }else {
+                    result = 0;
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+                result = 0;
+            }
+        }else {
+            result = -1;
+        }
+        return result;
+    }
+
+
     @Transactional
     private void insertBatch(List<Title> titleList, List<TitleClass> titleClassList,List<Teacher> teacherList, Map<String,Object> map){
         boolean temp =false;
@@ -242,12 +276,22 @@ public class AdminServiceImpl implements IAdminService{
             if (teacherService.addBatch(teacherList)==1){
                 if (titleClassService.addBatch(titleClassList)==1){
                     for (int i = 0; i < titleList.size();i++){
-                        System.out.println(teacherList.get(i).getAge());
+
                         titleList.get(i).setCreateteacherid(teacherList.get(i).getTeacherid());
                         titleList.get(i).setTitleclassid(titleClassList.get(i).getTitleclassid());
 
                     }
                     if (titleMapper.insertBatch(titleList) == titleList.size()){
+                        for(Title title:titleList){
+                            if(title.getTitleid()!=null) {
+                                Calendar calendar = Calendar.getInstance();
+                                String code = title.getTitleid().toString().length() == 4 ? title.getTitleid().toString() : title.getTitleid().toString().length() == 3 ? "0" + title.getTitleid() : title.getTitleid().toString().length() == 2 ? "00" + title.getTitleid() : "000" + title.getTitleid();
+                                StringBuffer sb = new StringBuffer();
+                                sb.append("ISS").append(calendar.getWeekYear()).append(code);
+                                title.setTitleCode(sb.toString());
+                                titleMapper.updateByPrimaryKeySelective(title);
+                            }
+                        }
                         map.put("result",1);
                     }else {
                         map.put("result",-2);

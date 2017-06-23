@@ -57,6 +57,12 @@ public class TitleController {
         return iTitleService.add(obj);
     }
 
+    @RequestMapping("/studentaddtitle")
+    @ResponseBody
+    public int studentaddtitle(Title obj){
+        return iTitleService.studentaddtitle(obj);
+    }
+
     @RequestMapping("/getCountMap")
     @ResponseBody
     public Map<String,Object>  getCountMap(){

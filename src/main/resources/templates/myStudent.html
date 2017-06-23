@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>软通毕业设计题目分配系统-换题审批</title>
+    <title>题目分配</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -57,7 +57,7 @@
                     <li class="dropdown">
 
                         <a data-toggle="dropdown" class="dropdown-toggle " href="#">
-                            <span id="userName1"></span><b class="caret"></b>
+                            <span id="userName1"></span> <b class="caret"></b>
                         </a>
 
                         <ul class="dropdown-menu">
@@ -100,7 +100,7 @@
 
                     <div class="account-details">
 
-                        <span id="userName2" class="account-name">罗宾逊</span>
+                        <span id="userName2"  class="account-name">罗宾逊</span>
 
                         <span class="account-role">教师</span>
 
@@ -125,9 +125,9 @@
                         </a>
                     </li>
 
-                    <li class="active">
+                    <li>
                         <a href="./change_title">
-                            <i class="icon-th-large"></i>
+                            <i class="icon-pushpin"></i>
                             换题审批
                             <span id="num2" class="label label-warning pull-right">5</span>
                         </a>
@@ -139,20 +139,19 @@
                             <span id="num3" class="label label-warning pull-right">5</span>
                         </a>
                     </li>
-
-                    <li >
+                    <li>
                         <a href="./assigen">
                             <i class="icon-th-large"></i>
                             题目分配
                         </a>
                     </li>
-                    <li >
+
+                    <li class="active">
                         <a href="./myStudent">
                             <i class="icon-th-large"></i>
                             我的学生
                         </a>
                     </li>
-
 
 
                 </ul>
@@ -173,9 +172,8 @@
 
                 <h1 class="page-title">
                     <i class="icon-th-large"></i>
-                    换题审批
+                    我的学生
                 </h1>
-
                 <!--头像上传开始-->
                 <div class="widget">
                     <div id="imageWidget" hidden="hidden" class="row" style="position: absolute;z-index: 1;">
@@ -197,6 +195,80 @@
                     </div>
                 </div>
                 <!--头像上传结束-->
+                <!--添加/编辑学生开始-->
+                <div class="widget">
+                    <div id="studentWidget" hidden="hidden" class="row" style="position: fixed;z-index: 1;  top: 15%">
+
+                        <div class="span8">
+                            <div class="widget">
+                                <div id="studentWidgetHeader" align="center" class="widget-header">
+                                </div>
+                                <div class="widget-content">
+
+                                    <!--<div class="input-group" style="padding: 10px;h">-->
+                                    <!--<span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;年级</span>-->
+                                    <!--<input id="sgrage" type="text" class="form-control" placeholder="请输入年级" />-->
+                                    <!--</div>-->
+                                    <div>
+                                        <div class="input-group" style="padding: 10px">
+                                            <span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;姓名</span>
+                                            <input id="sname" type="text" class="form-control" /><span
+                                                style="color: red">*</span>
+                                            <span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;学号</span>
+                                            <input id="scode" type="text" class="form-control" /><span
+                                                style="color: red">*</span>
+                                        </div>
+                                    </div>
+                                    <div  class="input-group" style="padding: 10px">
+                                        <span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;性别</span>
+                                        <select id="ssex">
+                                            <option value="1">男</option>
+                                            <option value="0">女</option>
+                                        </select>
+
+                                        <span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;年龄</span>
+                                        <input id="sage" type="number" class="form-control"  />
+                                    </div>
+
+                                    <div class="input-group" style="padding: 10px">
+                                        <span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;专业</span>
+                                        <input id="smajor" type="text" class="form-control"  />
+
+                                        <span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;院系</span>
+                                        <input id="sdepartments" type="text" class="form-control" />
+                                    </div>
+
+                                    <div class="input-group" style="padding: 10px">
+                                        <span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qq</span>
+                                        <input id="sqq" type="text" class="form-control"  />
+
+                                        <span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;微信</span>
+                                        <input id="swechat" type="text" class="form-control"  />
+                                    </div>
+
+                                    <div class="input-group" style="padding: 10px">
+                                        <span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;手机</span>
+                                        <input id="sphone" type="text" class="form-control"  />
+                                        <span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;班级</span>
+                                        <input id="className" type="text" class="form-control"  />
+                                    </div>
+
+
+
+
+                                    <div class="input-group" align="center" style="padding: 10px">
+
+
+                                        <button type="button" onclick="cloasPanal()" class="btn btn-danger"
+                                                style="width: 45%;">关闭
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--添加/编辑学生结束-->
 
                 <!--指定分配题目开始-->
                 <div class="widget">
@@ -218,83 +290,81 @@
                         </div>
                     </div>
                 </div>
+                <!--指定分配题目结束-->
 
+                <div class="input-group">
 
-                <button ONCLICK="changeall()" class="btn btn-warning">全部拒绝</button>
-                <button ONCLICK="changeTitleBatch()" class="btn btn-warning">全部随机换题</button>
+                    <button onclick="resetStudentPassword()" class="btn btn-warning">重置学生密码</button>
+                </div>
+                <br></br>
+                <div class="widget widget-table">
 
-<br/><br/>
-                    <div class="widget widget-table">
+                    <div class="widget-header">
+                        <i class="icon-th-list"></i>
+                        <h3>我的学生</h3>
+                    </div> <!-- /widget-header -->
 
-                        <div class="widget-header">
-                            <i class="icon-th-list"></i>
-                            <h3>申请换题学生列表</h3>
-                        </div> <!-- /widget-header -->
+                    <div class="widget-content">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>姓名</th>
+                                <th>学号</th>
+                                <th>校导</th>
+                                <th>企业导师</th>
+                                <th>选题名称</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
 
+                            <tbody id="tbody">
 
-                        <div class="widget-content">
-                            <table class="table table-striped table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>序号</th>
-                                    <th></th>
-                                    <th>姓名</th>
-                                    <th>学号</th>
-                                    <th>校导</th>
-                                    <th>企业导师</th>
-                                    <th>选题名称</th>
-                                    <th>换题原因</th>
-                                    <th>操作</th>
-                                </tr>
-                                </thead>
+                            </tbody>
+                        </table>
 
-                                <tbody id="tbody">
-
-                                </tbody>
-                            </table>
-
-                        </div> <!-- /widget-content -->
-                        <div class="paging" style="z-index: -1;float: right">
-                            <ul id="page_ul" class="pagination">
-                            </ul>
-                        </div>
+                    </div> <!-- /widget-content -->
+                    <div class="paging" style="z-index: -1;float: right">
+                        <ul id="page_ul" class="pagination">
+                        </ul>
+                    </div>
 
                 </div>
-                </div> <!-- /span9 -->
+            </div> <!-- /span9 -->
 
 
-            </div> <!-- /row -->
+        </div> <!-- /row -->
 
-        </div> <!-- /container -->
+    </div> <!-- /container -->
 
-    </div> <!-- /content -->
+</div> <!-- /content -->
 <br></br>	<br></br><br></br>
 
 
-    <div style="position: fixed;bottom: 0;text-align: center">
+<div style="position: fixed;bottom: 0;text-align: center">
 
-        <div class="container">
-            <hr/>
-            <p>@Copy 2017-2018 软通动力教育培训事业部 All Rights Reserved</p>
-        </div> <!-- /container -->
+    <div class="container">
+        <hr/>
+        <p>@Copy 2017-2018 软通动力教育培训事业部 All Rights Reserved</p>
+    </div> <!-- /container -->
 
-    </div> <!-- /footer -->
-
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./js/jquery-1.7.2.min.js"></script>
+</div> <!-- /footer -->
 
 
-    <script src="./js/bootstrap.js"></script>
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./js/jquery-1.7.2.min.js"></script>
+<script src="./js/bootstrap.js"></script>
 <script src="./js/bootbox.js"></script>
-
 <script src="./js/myjs/fileinput.min.js"></script>
 <script src="./js/myjs/fileinput_locale_zh.js"></script>
+
 <script src="./js/myjs/url.js"></script>
+<script src="./js/myjs/myStudent.js"></script>
 <script src="./js/myjs/main.js"></script>
-<script src="./js/myjs/changetitle.js"></script>
+
+
 
 </body>
 </html>
