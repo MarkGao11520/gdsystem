@@ -123,6 +123,8 @@ function cloasPanal1() {
     $('#widgetD').hide();
     clear1();
 }
+
+
 function addtitle() {
     if(check()){
         $.ajax({

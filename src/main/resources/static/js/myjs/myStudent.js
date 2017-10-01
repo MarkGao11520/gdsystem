@@ -123,6 +123,7 @@ function table(list) {   //
         var obj = list[i];
         str += "<tr id=\"student_"+obj.studentid+"\">" +
             "<td>"+(i+1)+"</td>" +
+            "<td><input name=\'studentid\' value=\'"+obj.studentid+"\' type=\"checkbox\" /></td>" +
             "<td>" + obj.studentname + "</td>"+
             "<td>" + obj.studentcode + "</td>"+
             "<td>" + (obj.teacherId2==null?'无':obj.teacherId2==''?'无':obj.teacherId2) + "</td>"+

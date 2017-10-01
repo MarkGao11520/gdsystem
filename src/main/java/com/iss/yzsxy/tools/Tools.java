@@ -25,23 +25,19 @@ public class Tools {
      * @param multipartFile   上传的文件
      * @return
      */
-    public static Map<String,Object> uploadFile(HttpServletRequest request,String uploadPath,MultipartFile multipartFile){
+    public static Map<String,Object> uploadFile(String uploadPath,MultipartFile multipartFile){
         Map<String,Object> map = new HashMap<String,Object>();
         try {
             UUID uuid = UUID.randomUUID();
-            String path = request.getServletContext().getRealPath(
-                    "/");
-            String userPath = "/" + uploadPath+"/";
-            String realPath = path + userPath ;
-            File dir = new File(realPath);
+            File dir = new File(uploadPath);
             if (!dir.exists()) {
                 dir.mkdirs();
             }
             String filename = uuid.toString()+"."+multipartFile.getContentType().split("/")[1].toString();
-            String fileurl = realPath+filename;
+            String fileurl = uploadPath+filename;
             multipartFile.transferTo(new File(fileurl));
             map.put("isSuccess",true);
-            map.put("url",userPath.substring(1,userPath.length())+filename);
+            map.put("url",filename);
             return map;
         } catch (Exception e) {
             e.printStackTrace();

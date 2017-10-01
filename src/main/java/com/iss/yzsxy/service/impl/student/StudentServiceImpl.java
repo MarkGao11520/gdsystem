@@ -172,7 +172,10 @@ public class StudentServiceImpl implements IStudentService {
     public int resetStudentPassword(Integer[] loginids) {
         int result = 0;
         String password;
-        if (Tools.obtainPrincipal().getRoles().equals("0")||Tools.obtainPrincipal().getRoles().equals("1")){
+        boolean hasRole = Tools.obtainPrincipal().getRoles().equals("0")||
+                          Tools.obtainPrincipal().getRoles().equals("1")||
+                          Tools.obtainPrincipal().getRoles().equals("3");
+        if (hasRole){
             try {
                 password = passwordEncoder.encodePassword("66666666",null);
                 if (loginMapper.resetStudentPassword(loginids,password)==loginids.length){

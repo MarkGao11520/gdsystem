@@ -543,6 +543,7 @@ function addStudent() {
 }
 
 function updateStudent(id) {
+
     $('#studentWidgetHeader').html("编辑学生");
     for(var i=0;i<list.length;i++) {
         if (id == list[i].studentid) {

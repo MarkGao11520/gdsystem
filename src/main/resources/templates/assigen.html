@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
 
-
+    <link rel="icon" type="image/x-icon" href="./favicon.ico" />
     <link href="./css/bootstrap.min.css" rel="stylesheet"/>
     <link href="./css/bootstrap-responsive.min.css" rel="stylesheet"/>
 
@@ -43,7 +43,7 @@
                 <span class="icon-bar"></span>
             </a>
 
-            <a class="brand" href="./"><img src="temp/logo.ico" height="auto" width="101"/> 软通学生毕业设计题目分配系统</a>
+            <a class="brand" href="./"><img src="temp/logo.png" height="auto" width="30"/> 融创软通毕业设计题目意向分配系统</a>
 
             <div class="nav-collapse">
 
@@ -195,7 +195,6 @@
                 </div>
                 <!--头像上传结束-->
 
-
                 <!--指定分配题目开始-->
                 <div class="widget">
                     <div id="assigenWidget" hidden="hidden" class="row" style="position: fixed;z-index: 1;">
@@ -217,6 +216,83 @@
                     </div>
                 </div>
                 <!--指定分配题目结束-->
+
+                <!--添加/编辑学生开始-->
+                <div class="widget">
+                    <div id="studentWidget" hidden="hidden" class="row" style="position: fixed;z-index: 1;  top: 15%">
+
+                        <div class="span8">
+                            <div class="widget">
+                                <div id="studentWidgetHeader" align="center" class="widget-header">
+                                </div>
+                                <div class="widget-content">
+
+                                    <!--<div class="input-group" style="padding: 10px;h">-->
+                                    <!--<span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;年级</span>-->
+                                    <!--<input id="sgrage" type="text" class="form-control" placeholder="请输入年级" />-->
+                                    <!--</div>-->
+                                    <div>
+                                        <div class="input-group" style="padding: 10px">
+                                            <span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;姓名</span>
+                                            <input id="sname" type="text" class="form-control" placeholder="请输入姓名"/><span
+                                                style="color: red">*</span>
+                                            <span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;学号</span>
+                                            <input id="scode" type="text" class="form-control" placeholder="请输入学号"/><span
+                                                style="color: red">*</span>
+                                        </div>
+                                    </div>
+                                    <div  class="input-group" style="padding: 10px">
+                                        <span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;性别</span>
+                                        <select id="ssex">
+                                            <option value="1">男</option>
+                                            <option value="0">女</option>
+                                        </select>
+
+                                        <span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;年龄</span>
+                                        <input id="sage" type="number" class="form-control" placeholder="请输入年龄" />
+                                    </div>
+
+                                    <div class="input-group" style="padding: 10px">
+                                        <span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;专业</span>
+                                        <input id="smajor" type="text" class="form-control" placeholder="请输入年级" />
+
+                                        <span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;院系</span>
+                                        <input id="sdepartments" type="text" class="form-control" placeholder="请输入院系" />
+                                    </div>
+
+                                    <div class="input-group" style="padding: 10px">
+                                        <span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qq</span>
+                                        <input id="sqq" type="text" class="form-control" placeholder="请输入qq号" />
+
+                                        <span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;微信</span>
+                                        <input id="swechat" type="text" class="form-control" placeholder="请输入微信号" />
+                                    </div>
+
+                                    <div class="input-group" style="padding: 10px">
+                                        <span  class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;手机</span>
+                                        <input id="sphone" type="text" class="form-control" placeholder="请输入教师手机号" />
+                                        <span style="color: red">*</span>
+                                    </div>
+
+
+
+
+                                    <div class="input-group" align="center" style="padding: 10px">
+                                        <button id="submitbtn" onclick="" type="button" style="width: 45%;"
+                                                class="btn btn-warning ">提交
+                                        </button>
+
+                                        <button type="button" onclick="cloasPanal()" class="btn btn-danger"
+                                                style="width: 45%;">取消
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--添加/编辑学生结束-->
+
                 <button ONCLICK="assigenTitleAll()" class="btn btn-warning">随机分配题目</button>
                 <button onclick="exportWordList()" class="btn btn-warning">导出全班开题报告</button>
                 <button  ONCLICK="exportExcel()" class="btn btn-warning">导出学生选题情况</button>
@@ -225,6 +301,7 @@
                     <input id="tCodeKey" style="margin-top: 1%" type="text" class="input-medium" placeholder="学号"/>
                     <button onclick="findLists(1,10)" class="btn btn-warning">搜索</button>
                 </div>
+
 
                 <div class="widget widget-table">
 
@@ -273,7 +350,7 @@
 <br></br>	<br></br><br></br>
 
 
-<div style="position: fixed;bottom: 0;text-align: center">
+<div style="margin-left:10%; position: fixed;bottom: 0;text-align: center">
 
     <div class="container">
         <hr/>

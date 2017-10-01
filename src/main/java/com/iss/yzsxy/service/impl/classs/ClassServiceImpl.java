@@ -78,6 +78,8 @@ public class ClassServiceImpl implements IClassService {
     @Override
     public int classAdd(Classs classes) {
         try {
+            if(classsMapper.selectClassByClassName(classes.getClassname())!=null)
+                return 0;
             classes.setCreateuid(Tools.obtainPrincipal().getId());
             if (classsMapper.insertSelective(classes) == 1) {
                 return 1;

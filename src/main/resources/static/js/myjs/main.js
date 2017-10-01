@@ -10,7 +10,7 @@
             $('#userName1').html(result.realname);
             $('#userName2').html(result.realname);
             if(result.pic!=null&&result.pic!="")
-            $('#userPic').attr('src',result.pic);
+            $('#userPic').attr('src','file/'+result.pic);
             $('#num1').html(result.num);
             $('#num2').html(result.num1);
             $('#num3').html(result.num2);
@@ -55,7 +55,7 @@ function preImageUpload() {
         .on("fileuploaded",function (event,data,c,d) {
             if((data.response.result==1)){
                 bootbox.alert("上传成功");
-                $('#userPic').attr("src",data.response.url);
+                $('#userPic').attr("src",'file/'+data.response.url);
                 closeImagePanal();
             }else{
                 bootbox.alert("上传失败");

@@ -5,7 +5,7 @@ var IP = "127.0.0.1"
 var PORT = "9090";
 var PLAT = "gdSystem";
 
-// var URL  = "http://"+IP+":"+PORT+"/"+PLAT;
+var baseUrl  = "http://"+IP+":"+PORT+"/"+PLAT;
 var URL  = "";
 /**
  * 获取管理员列表

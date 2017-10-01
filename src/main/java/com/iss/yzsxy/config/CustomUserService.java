@@ -21,9 +21,6 @@ public class CustomUserService implements UserDetailsService{
         if (user == null){
             throw new UsernameNotFoundException("用户名不存在");
         }
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        System.out.println(passwordEncoder.encode("123456"));
-//        user.setRoles(basUserMapper.findUserRoleByUserName(s));
         return user;
     }
 }

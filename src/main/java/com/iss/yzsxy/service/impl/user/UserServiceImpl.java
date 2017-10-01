@@ -15,6 +15,7 @@ import com.iss.yzsxy.tools.CustomXWPFDocument;
 import com.iss.yzsxy.tools.Tools;
 import com.iss.yzsxy.tools.WordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -49,15 +50,11 @@ public class UserServiceImpl implements IUserService{
     @Autowired
     Md5PasswordEncoder passwordEncoder;
 
+    @Value("${myTemp.rootPath}")
+    private String rootPath;
+
+    @Value("${myTemp.tempUrl}")
     private String tempUrl;
-
-    public String getTempUrl() {
-        return tempUrl;
-    }
-
-    public void setTempUrl(String tempUrl) {
-        this.tempUrl = tempUrl;
-    }
 
     @Override
     public Map<String, Object> updatePassword(String username, String password, String newPassword) {
@@ -80,7 +77,7 @@ public class UserServiceImpl implements IUserService{
 
     @Override
     public Map<String, Object> updateHeadPic(MultipartFile photo) {
-        Map<String, Object> map = Tools.uploadFile(request,"upload/user",photo);
+        Map<String, Object> map = Tools.uploadFile(rootPath,photo);
         Map<String,Object> map1 = new HashMap<String,Object>();
         if((boolean)map.get("isSuccess")){
             SysUser sysUser = Tools.obtainPrincipal();
